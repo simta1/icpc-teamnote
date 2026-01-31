@@ -38,15 +38,5 @@ public:
         return weight[b] - weight[a];
     }
 };
-
-/*
-!isConnected(a, b)라면 a와 b를 비교할 수 없음.
-getDiff쓰기 전에 isConnected(a, b)인지 확인하고 써야 됨
-
-https://www.acmicpc.net/problem/3830
-https://codeforces.com/gym/552209/problem/H
-
-https://ioqoo.tistory.com/34   
-https://cp-algorithms.com/data_structures/disjoint_set_union.html#support-distances-up-to-representative   
-https://nyaannyaan.github.io/library/data-structure/union-find-with-potential.hpp.html   
-*/
+// !isConnected(a, b)라면 a와 b를 비교할 수 없음.
+// getDiff쓰기 전에 isConnected(a, b)인지 확인하고 써야 됨
