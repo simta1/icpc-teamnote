@@ -1,2 +1,2 @@
-markdownpad-github.css
-plan.md
+build/*
+!build/teamnote.pdf

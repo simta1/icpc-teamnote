@@ -42,21 +42,12 @@ struct Dinic {
 	}
 	bool leftOfMinCut(int a) { return lvl[a] != 0; } // min-cut에서 source 집합에 속하는지
 };
-
-// graph에 i번째로 추가한 간선에 흐르는 유량 계산
 // vector<pair<int, int> ref;
 // ref.emplace_back(u, graph.adj[u].size()); graph.addEdge(u, v);
-// graph.maxFlow(); 후에
-// auto [u, idx] = ref[i];
-// cout << graph.adj[u][idx].flow() << "\n";
-
-// O(min(Ef, V^2 E))
-// 모든 간선의 용량이 1 -> O(min(V^{2/3}, E^{1/2})E)
+// auto [u, idx] = ref[i]; cout << graph.adj[u][idx].flow() << "\n";
+// O(min(Ef, V^2 E)), all cap = 1: O(min(V^{2/3}, E^{1/2})E)
 // dinic with scaling O(VE log(max_cap))
 // 근데 보통 그냥 dinic이 더 빠름, 오히려 max_cap이 클 때 dinic with scaling이 좋음
-
-// 무한간선이 많은 경우 proxysource -> source로 K(대충 LLONG_MAX 정도로 크게) 용량의 간선을 두고 계산하면
-// 애초에 최대유량이 K만큼으로 제한되므로 오버플로우 방지 가능
-
+// 무한간선 많은 경우 proxysource -> source로 K 용량의 간선을 두고 계산하면 애초에 최대유량이 K만큼으로 제한되므로 오버플로우 방지 가능
 // 정점분할 시 양방향이라면 addEdge(out(a), in(b), c), addEdge(out(b), int(a), c)
-// maxFlow(out(s), in(t))
+// 정점분할 시 maxFlow(out(s), in(t))
