@@ -39,5 +39,4 @@ public:
         return query(1, 0, n - 1, l - 1, r - 1, k);
     }
 };
-
 // time, space O(N~logN)

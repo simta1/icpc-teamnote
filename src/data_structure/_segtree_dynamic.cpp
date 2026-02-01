@@ -81,5 +81,4 @@ public:
         return kth(root, 0, MAX_IDX, k);
     }
 };
-
 /* space O(Q~logN) */

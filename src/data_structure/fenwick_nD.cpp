@@ -7,20 +7,20 @@ struct FenwickTree {
 
     template <typename... Args>
     void update(int pos, Args... args) {
-		for (; pos < tree.size(); pos += (pos & -pos)) tree[pos].update(args...);
-	}
+        for (; pos < tree.size(); pos += (pos & -pos)) tree[pos].update(args...);
+    }
 
     template <typename... Args>
     T sum(int r, Args... args) const {
-		T res = 0;
-		for (; r; r -= (r & -r)) res += tree[r].query(args...);
-		return res;
-	}
+        T res = 0;
+        for (; r; r -= (r & -r)) res += tree[r].query(args...);
+        return res;
+    }
 
     template <typename... Args>
     T query(int l, int r, Args... args) const {
-		return sum(r, args...) - sum(l - 1, args...);
-	}
+        return sum(r, args...) - sum(l - 1, args...);
+    }
 };
 
 template <typename T>

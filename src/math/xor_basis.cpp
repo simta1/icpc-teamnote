@@ -8,5 +8,5 @@ vector<T> getXorBasis(const vector<T> &v) {
     sort(basis.rbegin(), basis.rend());
     return basis;
 }
-// T max_xor_sum = 0;
-// for (auto b : getXorBasis(v)) max_xor_sum = max(max_xor_sum, max_xor_sum ^ b);
+// T mxSum = 0;
+// for (auto b : getXorBasis(v)) mxSum = max(mxSum, mxSum ^ b);
