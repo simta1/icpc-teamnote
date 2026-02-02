@@ -1,6 +1,4 @@
-// O((V+E)logV)
-// 모든 간선의 가중치가 0 이상일 때 사용 가능   
-auto dijkstra = [&](int s) {
+auto dijkstra = [&](int s) { // O(E logV)
     vector<dist_t> dist(n + 1, INF);
     dist[s] = 0;
     using elem = pair<dist_t, int>;

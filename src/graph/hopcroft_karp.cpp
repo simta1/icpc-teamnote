@@ -14,7 +14,7 @@ tuple<int, vector<int>, vector<int> > bimatch(int n1, int n2, const vector<vecto
             int l = q.front();
             q.pop();
             for (auto r : adj[l]) {
-                if (!~matchR[r]) flag = true; // return true; 하면 안 됨 (lvl배열 전부 계산하기 전에 return하면 안되니까)
+                if (!~matchR[r]) flag = true;
                 else if (!~lvl[matchR[r]]) {
                     lvl[matchR[r]] = lvl[l] + 1;
                     q.push(matchR[r]);

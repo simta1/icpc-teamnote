@@ -4,4 +4,4 @@
 [teamnote.pdf](/build/teamnote.pdf)
 
 ### References
-- https://github.com/ho94949/teamnote.sty
+- teamnote.sty: https://github.com/ho94949/teamnote.sty
