@@ -2,15 +2,15 @@ template <typename C, typename F>
 struct Graph {
     struct Edge {
         int to, rev;
-        C cost;
         F c, oc;
+        C cost;
     };
     vector<vector<Edge> > adj;
     C DIST_INF = numeric_limits<C>::max();
     Graph(int n) : adj(n) {} // 0-based
     void addEdge(int a, int b, C cost, F c, F rcap = 0) { // 양방향이면 rcap=c로 호출
-        adj[a].push_back({b, adj[b].size(), cost, c, c});
-        adj[b].push_back({a, adj[a].size() - 1, -cost, rcap, rcap});
+        adj[a].push_back({b, adj[b].size(), c, c, cost});
+        adj[b].push_back({a, adj[a].size() - 1, rcap, rcap, -cost});
     }
     pair<C, F> mcmf(int s, int t, F targetFlow = numeric_limits<F>::max()) { // O(VEf) // average O(Ef)
         C minCost = 0;
@@ -28,30 +28,21 @@ struct Graph {
                 int cur = q.front();
                 q.pop();
                 inq[cur] = false;
-                for (int i = 0; i < adj[cur].size(); i++) {
-                    auto &e = adj[cur][i];
-                    if (e.c && dist[e.to] > dist[cur] + e.cost) {
-                        dist[e.to] = dist[cur] + e.cost;
-                        pedge[e.to] = &e;
-                        if (!inq[e.to]) {
-                            q.push(e.to);
-                            inq[e.to] = true;
-                        }
+                for (auto &e : adj[cur]) if (e.c && dist[e.to] > dist[cur] + e.cost) {
+                    dist[e.to] = dist[cur] + e.cost;
+                    pedge[e.to] = &e;
+                    if (!inq[e.to]) {
+                        q.push(e.to);
+                        inq[e.to] = true;
                     }
                 }
             }
             if (dist[t] == DIST_INF) break;
             F f = targetFlow - maxFlow;
-            for (int cur = t; cur != s;) {
-                auto &e = *pedge[cur];
-                f = min(f, e.c);
-                cur = adj[e.to][e.rev].to;
-            }
-            for (int cur = t; cur != s;) {
-                auto &e = *pedge[cur];
-                e.c -= f;
-                adj[e.to][e.rev].c += f;
-                cur = adj[e.to][e.rev].to;
+            for (Edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) f = min(f, e->c);
+            for (Edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) {
+                e->c -= f;
+                adj[e->to][e->rev].c += f;
             }
             minCost += f * dist[t];
             maxFlow += f;

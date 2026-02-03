@@ -13,7 +13,6 @@ struct Graph {
             fill(pedge.begin(), pedge.end(), nullptr);
             queue<int> q;
             q.push(s);
-            bool found = false;
             while (!q.empty()) {
                 auto cur = q.front();
                 q.pop();
@@ -24,19 +23,13 @@ struct Graph {
                 if (pedge[t]) break;
             }
             if (!pedge[t]) break;
-            int flow = numeric_limits<int>::max();
-            for (int cur = t; cur != s;) {
-                auto &e = *pedge[cur];
-                flow = min(flow, e.c);
-                cur = adj[e.to][e.rev].to;
+            int f = numeric_limits<int>::max();
+            for (Edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) f = min(f, e->c);
+            for (Edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) {
+                e->c -= f;
+                adj[e->to][e->rev].c += f;
             }
-            for (int cur = t; cur != s;) {
-                auto &e = *pedge[cur];
-                e.c -= flow;
-                adj[e.to][e.rev].c += flow;
-                cur = adj[e.to][e.rev].to;
-            }
-            res += flow;
+            res += f;
         }
         return res;
     }
