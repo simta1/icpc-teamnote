@@ -44,20 +44,20 @@ struct Graph {
         }
         for (int i = 0; i < n; i++) pi[i] = min(pi[i] + dist[i], DIST_INF);
     }
-    pair<C, F> mcmf(int s, int t) { // O(E logV f)
-        C totcost = 0;
+    pair<C, F> mcmf(int s, int t) {
+        C minCost = 0;
         F maxFlow = 0;
         while (path(s), seen[t]) {
             F f = numeric_limits<F>::max();
             for (edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) f = min(f, e->c);
-            maxFlow += f;
             for (edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) {
                 e->c -= f;
                 adj[e->to][e->rev].c += f;
             }
+            maxFlow += f;
+            minCost += f * (pi[t] - pi[s]);
         }
-        for (int i = 0; i < n; i++) for(auto &e : adj[i]) totcost += e.cost * (e.oc - e.c);
-        return {totcost / 2, maxFlow};
+        return {minCost, maxFlow};
     }
     void setpi(int s) { // 음수비용 존재 시 mcmf전에 호출필요 // O(VE)
         fill(pi.begin(), pi.end(), DIST_INF);
