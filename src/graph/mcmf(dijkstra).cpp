@@ -6,6 +6,7 @@ struct Graph {
         int to, rev;
         F c, oc;
         C cost;
+        int from;
     };
     int n;
     vector<vector<edge> > adj;
@@ -13,10 +14,10 @@ struct Graph {
     vector<C> dist, pi;
     vector<edge*> pedge;
     const C DIST_INF = numeric_limits<C>::max() / 4;
-    Graph(int n) : n(n), adj(n), seen(n), dist(n), pi(n), pedge(n) {}
-    void addEdge(int a, int b, C cost, F c, F rcap = 0) {
-        adj[a].push_back({b, adj[b].size(), c, c, cost});
-        adj[b].push_back({a, adj[a].size()-1, rcap, rcap, -cost});
+    Graph(int n) : n(n), adj(n), seen(n), dist(n), pi(n), pedge(n) {} // 0-based
+    void addEdge(int a, int b, C cost, F c) {
+        adj[a].push_back({b, adj[b].size(), c, c, cost, a});
+        adj[b].push_back({a, adj[a].size() - 1, 0, 0, -cost, b});
     }
     void path(int s) {
         fill(seen.begin(), seen.end(), 0);
@@ -49,8 +50,8 @@ struct Graph {
         F maxFlow = 0;
         while (path(s), seen[t]) {
             F f = numeric_limits<F>::max();
-            for (edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) f = min(f, e->c);
-            for (edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) {
+            for (edge *e = pedge[t]; e; e = pedge[e->from]) f = min(f, e->c);
+            for (edge *e = pedge[t]; e; e = pedge[e->from]) {
                 e->c -= f;
                 adj[e->to][e->rev].c += f;
             }

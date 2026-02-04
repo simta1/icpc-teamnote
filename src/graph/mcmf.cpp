@@ -4,13 +4,14 @@ struct Graph {
         int to, rev;
         F c, oc;
         C cost;
+        int from;
     };
     vector<vector<Edge> > adj;
     C DIST_INF = numeric_limits<C>::max();
     Graph(int n) : adj(n) {} // 0-based
-    void addEdge(int a, int b, C cost, F c, F rcap = 0) { // 양방향이면 rcap=c로 호출
-        adj[a].push_back({b, adj[b].size(), c, c, cost});
-        adj[b].push_back({a, adj[a].size() - 1, rcap, rcap, -cost});
+    void addEdge(int a, int b, C cost, F c) {
+        adj[a].push_back({b, adj[b].size(), c, c, cost, a});
+        adj[b].push_back({a, adj[a].size() - 1, 0, 0, -cost, b});
     }
     pair<C, F> mcmf(int s, int t, F targetFlow = numeric_limits<F>::max()) { // O(VEf) // average O(Ef)
         C minCost = 0;
@@ -39,8 +40,8 @@ struct Graph {
             }
             if (dist[t] == DIST_INF) break;
             F f = targetFlow - maxFlow;
-            for (Edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) f = min(f, e->c);
-            for (Edge *e = pedge[t]; e; e = pedge[adj[e->to][e->rev].to]) {
+            for (Edge *e = pedge[t]; e; e = pedge[e->from]) f = min(f, e->c);
+            for (Edge *e = pedge[t]; e; e = pedge[e->from]) {
                 e->c -= f;
                 adj[e->to][e->rev].c += f;
             }
