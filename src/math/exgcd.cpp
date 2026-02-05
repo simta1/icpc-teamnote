@@ -8,3 +8,5 @@ ll modInverse(ll a, ll b) {
     if (g == 1) return (x + b) % b;
     return -1;
 } // modInverse(n, MOD)
+vector<ll> inv(n + 1, 1);
+for (int i = 2; i <= n; ++i) inv[i] = (p - ((p / i) * inv[p % i]) % p) % p;
