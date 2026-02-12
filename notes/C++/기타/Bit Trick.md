@@ -1,88 +1,5 @@
-[카테고리](/README.md)
-## Bit Trick
-### if ((a ^ b) >= 0)
-a와 b의 부호가 같으면 true   
-a, b 둘다 0이 아닐 때 사용   
-if (a * b > 0) 는 오버플로우 될 가능성이 있어서 별로다.   
-연산자 우선순위 ^가 >=보다 낮다.   
-
-### if (a ^ b)
-a != b이면 true
-
-### if (!~x)
--1일 때만 true
 ```cpp
-if (!~visited[cur]) //방문 안 한 곳인지
-if (!~dp[i]) //초기화됐던 처음상태인지
-```
-
-### if (x & 1)
-홀수면 true   
-x % 2보다 훨씬 빠르다. %는 산술 연산자 중 가장 느리다.   
-(사실 x%2로 써도 컴파일러가 x&1로 최적화한다. https://godbolt.org/z/9Gjd1aq4P)   
-
-### if (~x & 1)
-짝수면 true
-
-### ~-x, -~x
-각각 (x - 1), (x + 1)과 동일   
-숏코딩할 때 사용   
--(단항, 부호연산자)와 ~의 연산자 우선순위는 곱셈보다 높기 때문에 괄호 제거 가능   
-ex) v[i] * (i + 1) -> v[i] * -~i   
-
-### x & -x
-최하위 1비트(오른쪽에서 첫번째 1)   
-$\because$   
--k = (~k + 1) 이기 때문   
-
-### x &= x - 1
-최하위 1비트 제거   
-x &= ~-x 도 가능   
-```cpp
-// ex) popcount
-for (cnt = 0; x; ++cnt) x &= ~-x;
-```
-$\because$   
-01010100 // x   
-01010011 // x - 1   
-01010000 // x & (x - 1)   
-
-### if (x && !(x & x - 1))
-2의 거듭제곱만 true   
-if (x && !(x & ~-x)) 도 가능   
-추가로 `x==numeric_limits<int>::min()`일 때 안 됨. unsigned면 괜찮겠지만 int라서 음수기 때문에 2의 멱수가 아님   
-
-ex) 1, 2, 4, 8, 16, ...   
-$\because$   
-x & (x - 1) ->  2의 거듭제곱과 0만 false
-
-### !!x
-bool(x) 숏코딩할 때
-
-### x ^= 1
-x가 bool일 때만 사용   
-x = !x랑 같은 의미   
-x 변수이름 길어지면 유용   
-```cpp
-// ex) Splay Tree
-void reverse(int l, int r) {
-    gather(l, r)->flipLazy ^= 1;
-}
-```
-
-### x >> 31, -x >> 31
-```cpp
-bool isNegative = (x >> 31);
-bool isPositive = (-x >> 31);
-```
-
-### ~0u >> 2
-```cpp
-const int inf = ~0u >> 2; // 1073741823
-```
-
-### 부분집합 비트마스크 순회
-```cpp
+// mask의 부분집합들 중 공집합만 제외하고 전부 순회
 for (int i = mask; i > 0; i = (i - 1) & mask){
     cout << mask << "(" << bitset<N>(mask) << ") " << bitset<N>(i) << "\n";
 }
@@ -103,18 +20,13 @@ for (int i = mask; i > 0; i = (i - 1) & mask){
 // 29(11101) 00101
 // 29(11101) 00100
 // 29(11101) 00001
-```
-mask의 부분집합들 중 공집합만 제외하고 전부 순회
 
-### nCr 비트마스크 순회
-```cpp
+// nCr 비트마스크 순회
 constexpr int n = 5, k = 3;
 for (int mask = (1 << k) - 1; mask < (1 << n); ) { // n개 비트 중 k개 비트만 켜진 모든 비트마스크를 오름차순으로 순회
     if (mask == 0) break;
-    
     // code
     cout << bitset<n>(mask) << "\n";
-
     int x = mask & -mask, y = mask + x;
     mask = ((mask & ~y) / x >> 1) | y;
 }
@@ -149,20 +61,3 @@ mask & ~y = 00110
 (mask & ~y) / x = 00011   
 (mask & ~y) / x >> 1 = 00001   
 ((mask & ~y) / x >> 1) | y = 11001   
-
-### 대문자 소문자 변환
-```cpp
-c |= ' '; // 대문자 -> 소문자 
-c &= '_'; // 소문자 -> 대문자
-```
-
-### 숫자 문자 변환
-```cpp
-c &= 15; // 숫자문자('0' ~ '9') -> 숫자(int(0) ~ int(9))
-c |= 48; // 숫자(int(0) ~ int(9)) -> 숫자문자('0' ~ '9')
-```
-
-### a ^= b ^= a ^= b;
-정수 자료형 a와 b의 값을 바꿈   
-std::swap(a, b)에선 a와 b가 같은 변수여도 상관이 없지만 a ^= b ^= a ^= b;를 사용하는 경우엔 반드시 a와 b가 restrict여야 함   
-만약 같은 변수라면 a=b=0이 되버림   
