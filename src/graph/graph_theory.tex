@@ -17,11 +17,12 @@ $2e=$각 면에서 변의 개수의 합$\ge 3f$이므로 $v-e+f=2$와 연립하�
 
 \vspace{5pt}
 \noindent \textbf{매칭} \\
-Kőnig's theorem: 이분그래프에서 최대매칭=$|mvc|$ \\
-Maximum Independent Set = V - mvc : 서로 간선으로 연결되지 않은 정점들의 모임 중 가장 정점수가 많은것. 일반그래프에선 NP-hard임 \\
-$misL = L - mvcL, misR = R - mvcR$ \\
+Gallai's Identity: $|IS_{max}| + |VC_{min}| = |V|$ \\
+$IS_{max}$계산은 일반그래프에선 NP-hard \\
+Kőnig's theorem: 이분그래프에서 최대매칭=$|VC_{min}|$ \\
+$IS_{max,L} = L - VC_{min,L}, IS_{max,R} = R - VC_{min,R}$ \\
 Dilworth's theorem: 부분 순서 집합에서 최대 반사슬의 크기는 사슬 분할의 최소 개수와 같음 \\
-antichain은 $v\_in$이 misL이고 \&\& $v\_out$이 misR인 v들을 모으면 됨 \\
+antichain은 $v_{in}$이 $IS_{max,L}$이고 \&\& $v_{out}$이 $IS_{max, R}$인 v들을 모으면 됨 \\
 clique는 complement graph에서의 Independent set과 같음 \\
 hall's marriage theorem: 이분그래프 $G=(L+R,E)$에서 $L$의 부분집합 $S$에 대해 이와 연결된 $R$의 부분집합을 $N(S)$라 할 때, 이 이분그래프에 perfect matching이 존재할 필요충분조건은 모든 $S$에 대하여 $|S| \le |N(S)|$ \\
 -> k-정규 이분 그래프는 항상 perfect matching을 가짐 \\
