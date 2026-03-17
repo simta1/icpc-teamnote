@@ -1,13 +1,7 @@
-[카테고리](/README.md)
-## 곱셈적 함수 (Multiplicative Function)
-```cpp
-vector<ll> getMulFunc(int n) {
+vector<ll> getMulFunc(int n) { // O(N)
     vector<ll> func(n + 1);
     func[1] = 1;
-
     vector<int> primes, lpf(n + 1), lpe(n + 1); // least prime factor, least prime exponent
-    primes.reserve(n / log(n));
-
     for (ll i = 2; i <= n; i++) {
         if (!lpf[i]) {
             lpf[i] = i;
@@ -29,20 +23,5 @@ vector<ll> getMulFunc(int n) {
             }
         }
     }
-
     return func;
 }
-```
-### 시간복잡도
-$O(N)$   
-
-### 사용설명
-$\mu$랑 $\phi$는 바로 사용할 수 있게 따로 스니펫 만들어둠   
-[뫼비우스 함수](/수학/뫼비우스.md)   
-[오일러 파이 함수](/수학/Phi%20Function.md)   
-
-### 문제
-[LCM(i, j)](https://www.acmicpc.net/problem/11691)
-
-### 참고링크
-https://ps.mjstudio.net/linear-sieve#%EC%9D%91%EC%9A%A9-2---%EC%8A%B9%EB%B2%95%ED%95%A8%EC%88%98   
