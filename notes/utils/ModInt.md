@@ -3,15 +3,15 @@
 ```cpp
 using ll = long long;
 template <ll MOD>
-class ModInt {
+class mint {
     static_assert(MOD > 1);
     static_assert(MOD - 1 <= numeric_limits<long long>::max() / 2, "operator+ 수정해야 함");
 
 public:
     ll value;
 
-    explicit ModInt() = default;
-    explicit ModInt(ll n) {
+    explicit mint() = default;
+    explicit mint(ll n) {
         value = n % MOD;
         if (value < 0) value += MOD;
     }
@@ -22,14 +22,14 @@ public:
         return {y, x - (a / b) * y, g};
     }
 
-    ModInt inv() const {
+    mint inv() const {
         auto [x, y, g] = extendedGCD(value, MOD);
         assert(g == 1); // g!=1이면 역원 존재 안함
-        return ModInt(x);
+        return mint(x);
     }
 
-    ModInt pow(ll n) const {
-        ModInt base = *this, res(1);
+    mint pow(ll n) const {
+        mint base = *this, res(1);
         while (n) {
             if (n & 1) res *= base;
             base *= base;
@@ -38,23 +38,23 @@ public:
         return res;
     }
     
-    ModInt operator-() const { return ModInt(-value); }
-    ModInt& operator+=(const ModInt &other) { if ((value += other.value) >= MOD) value -= MOD; return *this; }
-    ModInt& operator-=(const ModInt &other) { if ((value -= other.value) < 0) value += MOD; return *this; }
-    ModInt& operator*=(const ModInt &other) {
+    mint operator-() const { return mint(-value); }
+    mint& operator+=(const mint &other) { if ((value += other.value) >= MOD) value -= MOD; return *this; }
+    mint& operator-=(const mint &other) { if ((value -= other.value) < 0) value += MOD; return *this; }
+    mint& operator*=(const mint &other) {
         if constexpr ((MOD - 1) > numeric_limits<ll>::max() / (MOD - 1)) value = ll(__int128(value) * other.value % MOD);
         else value = value * other.value % MOD;
         return *this;
     }
-    ModInt& operator/=(const ModInt &other) { return *this *= other.inv(); }
-    ModInt operator+(const ModInt &other) const { return ModInt(value) += other; }
-    ModInt operator-(const ModInt &other) const { return ModInt(value) -= other; }
-    ModInt operator*(const ModInt &other) const { return ModInt(value) *= other; }
-    ModInt operator/(const ModInt &other) const { return ModInt(value) /= other; }
-    bool operator==(const ModInt &other) const { return value == other.value; }
-    bool operator!=(const ModInt &other) const { return value != other.value; }
-    friend istream &operator>>(istream &is, ModInt &m) { ll x; is >> x; m = ModInt(x); return is; }
-    friend ostream &operator<<(ostream &os, const ModInt &m) { return os << m.value; }
+    mint& operator/=(const mint &other) { return *this *= other.inv(); }
+    mint operator+(const mint &other) const { return mint(value) += other; }
+    mint operator-(const mint &other) const { return mint(value) -= other; }
+    mint operator*(const mint &other) const { return mint(value) *= other; }
+    mint operator/(const mint &other) const { return mint(value) /= other; }
+    bool operator==(const mint &other) const { return value == other.value; }
+    bool operator!=(const mint &other) const { return value != other.value; }
+    friend istream &operator>>(istream &is, mint &m) { ll x; is >> x; m = mint(x); return is; }
+    friend ostream &operator<<(ostream &os, const mint &m) { return os << m.value; }
 };
 ```
 
