@@ -1,3 +1,23 @@
+// 양방향
+struct Edge {
+    int to, rev, cnt;
+};
+
+auto dfs = [&](auto &&dfs, int cur) -> void {
+    while (!adj[cur].empty()) {
+        auto &edge = adj[cur].back();
+        if (edge.cnt == 0) adj[cur].pop_back();
+        else {
+            --edge.cnt;
+            --adj[edge.to][edge.rev].cnt;
+            int tmp = edge.idx;
+            dfs(dfs, edge.to);
+            edges.push_back(tmp);
+        }
+    }
+    nodes.push_back(cur);
+};
+
 // 양방향 그래프
 struct Edge { int to, rev, cnt; };
 pair<bool, vector<int> > getCircuit(vector<vector<Edge> > adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
