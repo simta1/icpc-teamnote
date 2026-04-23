@@ -142,20 +142,22 @@ namespace Poly { // 정확도 높은 FFT
 ```cpp
 namespace Poly { // NTT
     template <ll p, ll primitiveRoot>
-    void ntt(vector<ModInt<p> > &f, bool is_reverse) {
-        __transform(f, is_reverse,ModInt<p>(primitiveRoot).pow((p - 1) / f.size()));
+    void ntt(vector<mint<p> > &f, bool is_reverse) {
+        __transform(f, is_reverse, mint<p>(primitiveRoot).pow((p - 1) / f.size()));
     }
     
     // | p = a*2^b+1   | a   | b  | 2^b       | g |
     // | ------------- | --- | -- | --------- | - |
     // | 104'857'601   | 25  | 22 | 4194304   | 3 |
+    // | 469,762,049   | 7   | 26 | 8388608   | 3 |
     // | 998'244'353   | 119 | 23 | 8388608   | 3 |
+    // | 1,004,535,809 | 479 | 21 | 8388608   | 3 |
     // | 2'281'701'377 | 17  | 27 | 134217728 | 3 |
     // | 2'483'027'969 | 37  | 26 | 67108864  | 3 |
     template <ll p, ll primitiveRoot, typename T> // p = a * 2^b + 1 꼴 소수, n <= 2^b인 n차 다항식에 대해 mod P에서의 다항식 곱셈 계산
     vector<ll> multiplyMod(const vector<T> &f, const vector<T> &g) {
-        vector<ModInt<p> > a(f.begin(), f.end());
-        vector<ModInt<p> > b(g.begin(), g.end());
+        vector<mint<p> > a(f.begin(), f.end());
+        vector<mint<p> > b(g.begin(), g.end());
         int n = pow2GE(a.size() + b.size());
         assert(n <= ((p - 1) & -(p - 1)));
         a.resize(n);
@@ -222,13 +224,13 @@ namespace Poly { // NTT 다항식 나눗셈, 키타마사
     vector<ll> invertMod(const vector<T> &f, int deg) { // f(x)^-1 mod x^deg 계산 // 계수는 mod p로 계산
         assert(f[0] != 0); // f(x)의 상수항이 0이면 역원이 존재하지 않음 // 참고로 divideMod(f, g)에서 g의 계수를 뒤집은 게 invertMod의 f이므로 f[0]!=0이란 건 divideMod에서 g의 최고차항의 계수가 0이 아니란 것과 동치임
 
-        vector<ll> res = {ModInt<p>(f[0]).inv().value}; // f(x)^-1 mod x^1
+        vector<ll> res = {mint<p>(f[0]).inv().value}; // f(x)^-1 mod x^1
 
         for (int curDeg = 1; curDeg < deg; curDeg <<= 1) {
             int nextDeg = curDeg << 1;
 
             // prod = f(x) * res(x)
-            vector<ll> prod = multiplyMod<p, primitiveRoot>(res, vector<ll>(f.begin(), f.begin() + nextDeg));
+            vector<ll> prod = multiplyMod<p, primitiveRoot>(res, vector<ll>(f.begin(), f.begin() + min(int(f.size()), nextDeg)));
             prod.resize(nextDeg);
 
             // prod = 2 - f(x) * res(x)
@@ -297,6 +299,39 @@ namespace Poly { // NTT 다항식 나눗셈, 키타마사
 
         ll res = 0; // an = a1 * d1 + a2 * d2 + ... + ak * dk
         for (int i = 0; i < d.size(); i++) res = (res + a[i] * d[i]) % p;
+        return res;
+    }
+}
+
+namespace Poly { // multipoint evaluation
+    template <ll p, ll primitiveRoot, typename T>
+    vector<ll> multiEval(const vector<T> &f, const vector<T> &qs) { // O(NlogN + qlog^q)
+        vector<vector<ll> > tree(4 * qs.size());
+        auto build = [&](auto &&build, int node, int s, int e) {
+            if (s == e) {
+                tree[node] = {(p - qs[s] % p) % p, 1};
+                return;
+            }
+            int m = s + e >> 1;
+            build(build, node << 1, s, m);
+            build(build, node << 1 | 1, m + 1, e);
+            tree[node] = multiplyMod<p, primitiveRoot>(tree[node << 1], tree[node << 1 | 1]);
+        };
+        build(build, 1, 0, qs.size() - 1); // O(qlog^2q)
+
+        vector<ll> res(qs.size());
+        auto eval = [&](auto &&eval, vector<ll> poly, int node, int s, int e) {
+            poly = remainderMod<p, primitiveRoot>(poly, tree[node]);
+            if (s == e) {
+                assert(!poly.empty());
+                res[s] = poly[0];
+                return;
+            }
+            int m = s + e >> 1;
+            eval(eval, poly, node << 1, s, m);
+            eval(eval, poly, node << 1 | 1, m + 1, e);
+        };
+        eval(eval, f, 1, 0, qs.size() - 1);
         return res;
     }
 }
