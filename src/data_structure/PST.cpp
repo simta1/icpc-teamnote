@@ -1,62 +1,34 @@
-struct PST {
-    struct Node {
-        Node *l, *r;
-        ll val;
-        Node() : l(0), r(0), val(0) {}
-    };
-    Node* newNode() {
-        static Node tree[131'072 * 2 + 18 * 100'000]; // sz * 2 + (1 + log_2(sz)) * q
-        static int idx = 0;
-        return &tree[idx++];
-    }
-    int n;
-    vector<Node *> roots;
-    void build(Node *node, int s, int e, const vector<int> &v) {
-        if (s == e) {
-            node->val = s < v.size() ? v[s] : 0;
-            return;
-        }
-        int m = s + e >> 1;
-        node->l = newNode();
-        node->r = newNode();
-        build(node->l, s, m, v);
-        build(node->r, m + 1, e, v);
-        node->val = node->l->val + node->r->val;
-    }
-    PST(const vector<int> &v) {
-        n = v.size();
-        roots.push_back(newNode());
-        build(roots[0], 0, n - 1, v);
-    }
-    void update(Node *old, Node *node, int s, int e, int idx, int val) {
-        if (s == e) {
-            node->val = val;
-            return;
-        }
-        int m = s + e >> 1;
-        if (idx <= m) {
-            node->l = newNode();
-            node->r = old->r;
-            update(old->l, node->l, s, m, idx, val);
-        }
-        else {
-            node->l = old->l;
-            node->r = newNode();
-            update(old->r, node->r, m + 1, e, idx, val);
-        }
-        node->val = node->l->val + node->r->val;
-    }
-    void update(int idx, int val) { // 1-based
-        roots.push_back(newNode());
-        update(*++roots.rbegin(), roots.back(), 0, n - 1, idx - 1, val);
-    }
-    ll query(Node *node, int s, int e, int l, int r) {
-        if (l <= s && e <= r) return node->val;
-        if (l > e || s > r) return 0;
-        int m = s + e >> 1;
-        return query(node->l, s, m, l, r) + query(node->r, m + 1, e, l, r);
-    }
-    ll query(int t, int l, int r) { // 1-based // t=0은 update한번도 안한 초기v
-        return query(roots[t], 0, n - 1, l - 1, r - 1);
-    }
+struct Node {
+    int l, r;
+    ll val;
+    Node() { l = r = val = 0; }
 };
+vector<Node> tree;
+auto newNode = [&]() {
+    tree.emplace_back();
+    return tree.size() - 1;
+};
+auto upd = [&](auto &&upd, int old, int node, int s, int e, int i, int add) {
+    if (s == e) {
+        tree[node].val = tree[old].val + add;
+        return;
+    }
+    int m = s + e >> 1;
+    if (i <= m) {
+        tree[node].r = tree[old].r;
+        upd(upd, tree[old].l, tree[node].l = newNode(), s, m, i, add);
+    }
+    else {
+        tree[node].l = tree[old].l;
+        upd(upd, tree[old].r, tree[node].r = newNode(), m + 1, e, i, add);
+    }
+    tree[node].val = tree[tree[node].l].val + tree[tree[node].r].val;
+};
+auto qry = [&](auto &qry, int node, int s, int e, int l, int r) {
+    if (l <= s && e <= r) return tree[node].val;
+    if (l > e || s > r) return 0LL;
+    int m = s + e >> 1;
+    return qry(qry, tree[node].l, s, m, l, r) + qry(qry, tree[node].r, m + 1, e, l, r);
+};
+vector<int> roots;
+roots.push_back(newNode()); // version 1

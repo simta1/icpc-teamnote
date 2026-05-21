@@ -27,11 +27,8 @@ namespace PollardRho {
 		return primes;
 	}
 	vector<ll> getAllDivisors(ll n) {
-		auto factors = factorize(n);
-		int cnt = 1;
-		for (auto [p, e] : factors) cnt *= e + 1;
 		vector<ll> res = {1};
-		res.reserve(cnt);
+		if (n == 1) return res;
 		for (auto [p, e] : factorize(n)) {
 			int sz = res.size();
 			ll curP = p;
