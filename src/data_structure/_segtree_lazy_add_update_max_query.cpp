@@ -1,3 +1,7 @@
+// int N = n + 1;
+int sz = 1;
+while (sz < N) sz <<= 1;
+vector<ll> tree(sz << 1), lazy(sz << 1);
 auto propagate = [&](int node, int s, int e) {
 	if (lazy[node]) {
 		tree[node] += lazy[node];
