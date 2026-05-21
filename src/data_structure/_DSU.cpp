@@ -1,15 +1,13 @@
 struct DSU {
-	vector<int> parent;
-	DSU(int n) : parent(n + 1) {
-		iota(parent.begin(), parent.end(), 0);
+	vector<int> p;
+	DSU(int n) : p(n + 1) {
+		iota(p.begin(), p.end(), 0);
 	}
 	int find(int a) {
-		return parent[a] == a ? a : parent[a] = find(parent[a]);
+		while (p[a] != a) a = p[a] = p[p[a]];
+		return a;
 	}
 	void merge(int a, int b) {
-		parent[find(a)] = find(b);
-	}
-	bool isConnected(int a, int b) {
-		return find(a) == find(b);
+		p[find(a)] = find(b);
 	}
 };
