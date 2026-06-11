@@ -1,9 +1,9 @@
 struct Graph {
-	struct Edge { int to, rev, c, oc; };
-	vector<vector<Edge> > adj;
+    struct Edge { int to, rev, c, oc; };
+    vector<vector<Edge> > adj;
     vector<int> visited;
     int trueValue = 0;
-	Graph(int n) : adj(n), visited(n) {} // 0-based
+    Graph(int n) : adj(n), visited(n) {} // 0-based
     void addEdge(int u, int v, int c) {
         adj[u].push_back({v, adj[v].size(), c, c});
         adj[v].push_back({u, adj[u].size() - 1, 0, 0});

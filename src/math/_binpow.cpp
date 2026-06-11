@@ -1,8 +1,5 @@
-[카테고리](/README.md)
-## 분할정복을 이용한 거듭제곱
-### Power (int)
-```cpp
-ll power(ll a, ll n, ll mod) { // a ^ n % mod
+// mod <= INT_MAX
+ll binpow(ll a, ll n, ll mod) { // a ^ n % mod
     ll res = 1;
     while (n) {
         if (n & 1) res = res * a % mod;
@@ -11,9 +8,8 @@ ll power(ll a, ll n, ll mod) { // a ^ n % mod
     }
     return res;
 }
-```
-### Power (long long)
-```cpp
+
+// mod <= LLONG_MAX
 ll multiply(ll a, ll b, ll mod) {
     return __int128(a) * b % mod;
 }
@@ -27,10 +23,9 @@ ll power(ll a, ll n, ll mod) { //a ^ n % mod
     }
     return res;
 }
-```
-### tangent 배각 분수로 계산
-```cpp
-pll tanMul(ll a, ll b, ll n, ll mod) { // tanT = a / b, tan(nT) = ?
+
+// 
+pll tanNth(ll a, ll b, ll n, ll mod) { // tanT = a / b, tan(nT) = ?
     ll ra = 0, rb = 1;
     
     while (n) {
@@ -41,13 +36,3 @@ pll tanMul(ll a, ll b, ll n, ll mod) { // tanT = a / b, tan(nT) = ?
 
     return {ra, rb};
 }
-```
-### 시간복잡도 
-$O(logN)$   
-
-### 주의사항
-int끼리 곱한다면 ll로, ll끼리 곱한다면 __int128로 해야 overflow안난다.
-
-### 백준문제
-[곱셈](https://www.acmicpc.net/problem/1629)   
-[Circle Bounce](https://www.acmicpc.net/problem/24590) - 탄젠트 배각   
