@@ -1,27 +1,27 @@
 template <typename T>
 struct Trie {
     struct Node {
-        map<T, Node *> mp;
+        map<T, int> mp;
         bool end = false;
-        ~Node() { for (auto &[_, node] : mp) delete node; }
-        Node *go(T val) {
-            if (!mp.count(val)) mp[val] = new Node;
-            return mp[val];
-        }
-    } *root;
-    Trie() : root(new Node()) {}
-    ~Trie() { delete root; }
+    };
+    vector<Node> tr = {Node()};
     void insert(const vector<T> &v) { // O(N)
-        Node *cur = root;
-        for (auto &e : v) cur = cur->go(e);
-        cur->end = true;
+        int cur = 0;
+        for (auto &e : v) {
+            if (!tr[cur].mp.count(e)) {
+                tr[cur].mp[e] = tr.size();
+                tr.emplace_back();
+            }
+            cur = tr[cur].mp[e];
+        }
+        tr[cur].end = true;
     }
     bool find(const vector<T> &v) { // O(N)
-        Node *cur = root;
+        int cur = 0;
         for (auto &e : v) {
-            if (!cur->mp.count(e)) return false;
-            cur = cur->go(e);
+            if (!tr[cur].mp.count(e)) return false;
+            cur = tr[cur].mp[e];
         }
-        return cur->end;
+        return tr[cur].end;
     }
 };
