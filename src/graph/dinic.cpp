@@ -40,7 +40,7 @@ struct Dinic {
         } while (lvl[t]);
         return res;
     }
-    bool leftOfMinCut(int a) { return lvl[a] != 0; } // min-cut에서 source 집합에 속하는지
+    bool leftOfMinCut(int a) { return lvl[a] != 0; }
 };
 // vector<pair<int, int> ref;
 // ref.emplace_back(u, graph.adj[u].size()); graph.addEdge(u, v);
