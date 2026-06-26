@@ -1,0 +1,163 @@
+\subsection{Moebius Inversion}
+
+\noindent
+$\tau(n)$ : 양의 약수의 개수 \\
+$\sigma(n)$ : 양의 약수의 합 \\
+$\phi(n)$ : $n$ 이하의 자연수 중 $n$과 서로소인 수의 개수 $(\phi(1)=1)$ \\
+$\mu(n)$ : 뫼비우스 함수 \\
+$\varepsilon(n)$ : $[n=1]$ (Iverson bracket) \\
+$\mathbf{1}(n)=1$, $\operatorname{Id}(n)=n$
+
+\vspace{5pt}
+\noindent \textbf{Dirichlet Convolution} \\
+\[
+\tau = \mathbf{1} \ast \mathbf{1}, \qquad
+\sigma = \operatorname{Id} \ast \mathbf{1}, \qquad
+\operatorname{Id} = \phi \ast \mathbf{1}, \qquad
+\mathbf{1} = \varepsilon \ast \mathbf{1}, \qquad
+\sigma = \phi \ast \tau
+\]
+
+\vspace{5pt}
+\noindent \textbf{Moebius Inversion} \\
+\[
+g(n) = \sum_{d \mid n} f(d), \quad \forall n \in \mathbb{N}
+\iff
+f(n) = \sum_{d \mid n} g(d)\mu\left(\frac{n}{d}\right), \quad \forall n \in \mathbb{N}
+\]
+즉,
+\[
+g = f \ast \mathbf{1} \iff f = g \ast \mu
+\]
+
+\[
+\mathbf{1} = \tau \ast \mu, \qquad
+\operatorname{Id} = \sigma \ast \mu, \qquad
+\phi = \operatorname{Id} \ast \mu, \qquad
+\varepsilon = \mathbf{1} \ast \mu
+\]
+
+\[
+\varepsilon = (\operatorname{Id}\mu) \ast \operatorname{Id}
+\]
+\[
+\operatorname{Id}^{k+1} = (\operatorname{Id}^{k}\phi) \ast \operatorname{Id}^{k}
+\]
+
+\vspace{5pt}
+\noindent \textbf{GCD Sums} \\
+
+\[
+\sum_{k=1}^{n} \sum_{d=1}^{\left\lfloor n/k \right\rfloor}
+=
+\sum_{l=1}^{n} \sum_{d \mid l}
+\qquad
+\left(l=kd,\ d=\frac{l}{k}\right)
+\]
+
+\noindent \textbf{1.}
+\[
+\sum_{i=1}^{n} \sum_{j=1}^{n} [\gcd(i,j)=1]
+=
+\sum_{d=1}^{n} \mu(d) \left\lfloor \frac{n}{d} \right\rfloor^2
+\]
+
+\noindent \textbf{1'.}
+\[
+\sum_{i=1}^{n} \sum_{j=1}^{n} [\gcd(i,j)=g]
+=
+\sum_{d=1}^{\left\lfloor n/g \right\rfloor}
+\mu(d)
+\left\lfloor \frac{n}{gd} \right\rfloor^2
+\]
+
+\[
+\sum_{i=1}^{n} \sum_{j=1}^{n} [\gcd(i,j)=1]
+=
+2\sum_{i=1}^{n}\phi(i)-1
+\]
+
+\noindent \textbf{2.}
+\begin{align*}
+\sum_{i=1}^{n} \sum_{j=1}^{n} \gcd(i,j)
+&=
+\sum_{k=1}^{n}
+k
+\sum_{i=1}^{n}
+\sum_{j=1}^{n}
+[\gcd(i,j)=k] \\
+&=
+\sum_{k=1}^{n}
+k
+\sum_{i=1}^{\left\lfloor n/k \right\rfloor}
+\sum_{j=1}^{\left\lfloor n/k \right\rfloor}
+[\gcd(i,j)=1] \\
+&=
+\sum_{k=1}^{n}
+k
+\sum_{d=1}^{\left\lfloor n/k \right\rfloor}
+\mu(d)
+\left\lfloor
+\frac{\left\lfloor n/k \right\rfloor}{d}
+\right\rfloor^2 \\
+&=
+\sum_{k=1}^{n}
+k
+\sum_{d=1}^{\left\lfloor n/k \right\rfloor}
+\mu(d)
+\left\lfloor
+\frac{n}{kd}
+\right\rfloor^2 \\
+&=
+\sum_{l=1}^{n}
+\left\lfloor
+\frac{n}{l}
+\right\rfloor^2
+\sum_{k \mid l}
+k\mu\left(\frac{l}{k}\right) \\
+&=
+\sum_{l=1}^{n}
+\left\lfloor
+\frac{n}{l}
+\right\rfloor^2
+\phi(l)
+\end{align*}
+
+\noindent \textbf{2'.}
+\[
+\sum_{i=1}^{n} \sum_{j=1}^{m} \gcd(i,j)
+=
+\sum_{l=1}^{\min(n,m)}
+\left\lfloor \frac{n}{l} \right\rfloor
+\left\lfloor \frac{m}{l} \right\rfloor
+\phi(l)
+\]
+
+\noindent \textbf{2''.}
+\[
+\sum_{i=1}^{n} \sum_{j=1}^{m} i\gcd(i,j)
+=
+\sum_{l=1}^{\min(n,m)}
+\left\lfloor \frac{m}{l} \right\rfloor
+\frac{
+\left\lfloor n/l \right\rfloor
+\left(\left\lfloor n/l \right\rfloor+1\right)
+}{2}
+\, l\phi(l)
+\]
+
+\noindent \textbf{2'''.}
+\[
+\sum_{i=1}^{n} \sum_{j=1}^{m} ij\gcd(i,j)
+=
+\sum_{l=1}^{\min(n,m)}
+\frac{
+\left\lfloor m/l \right\rfloor
+\left(\left\lfloor m/l \right\rfloor+1\right)
+}{2}
+\frac{
+\left\lfloor n/l \right\rfloor
+\left(\left\lfloor n/l \right\rfloor+1\right)
+}{2}
+\, l^2\phi(l)
+\]
