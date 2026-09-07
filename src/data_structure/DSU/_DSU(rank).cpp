@@ -4,8 +4,8 @@ struct DSU {
         iota(p.begin(), p.end(), 0);
     }
     int find(int a) {
-		while (p[a] != a) a = p[a] = p[p[a]];
-		return a;
+        while (p[a] != a) a = p[a] = p[p[a]];
+        return a;
     }
     void merge(int a, int b) {
         a = find(a);
