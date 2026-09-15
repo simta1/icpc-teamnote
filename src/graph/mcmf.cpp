@@ -6,7 +6,7 @@ struct Graph {
         C cost;
         int from;
     };
-    vector<vector<Edge> > adj;
+    vector<vector<Edge>> adj;
     C DIST_INF = numeric_limits<C>::max();
     Graph(int n) : adj(n) {} // 0-based
     void addEdge(int a, int b, C cost, F c) {

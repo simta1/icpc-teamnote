@@ -1,4 +1,4 @@
-auto topoSort = [&](int n, const vector<vector<int> > &adj) { // O(V + E)
+auto topoSort = [&](int n, const vector<vector<int>> &adj) { // O(V + E)
     vector<int> indeg(n + 1);
     for (int u = 1; u <= n; u++) for (auto v : adj[u]) ++indeg[v];
     queue<int> q;

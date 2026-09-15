@@ -6,7 +6,7 @@ struct Dinic {
         F flow() { return max(oc - c, F(0)); }
     };
     vector<int> lvl, ptr, q;
-    vector<vector<Edge> > adj;
+    vector<vector<Edge>> adj;
     Dinic(int n) : lvl(n), ptr(n), q(n), adj(n) {} // 0-based
     void addEdge(int a, int b, F c, F rcap = 0) { // 양방향이면 rcap=c로 호출
         if (a == b) return; // self-loop는 최대유량에 영향 X

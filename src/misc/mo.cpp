@@ -1,5 +1,5 @@
 template <typename T>
-vector<T> mo(const vector<int> &v, const vector<pair<int, int> > &_qs) { // O((N+Q)sqrt(N)T(N)) // T(N)은 push(), pop()의 시간복잡도   
+vector<T> mo(const vector<int> &v, const vector<pair<int, int>> &_qs) { // O((N+Q)sqrt(N)T(N)) // T(N)은 push(), pop()의 시간복잡도   
     int q = _qs.size();
     struct Query { int s, e, idx; };
     vector<Query> qs(q); // {s, e, idx}

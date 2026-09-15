@@ -18,7 +18,7 @@ template<ll MOD> vector<ll> Hashing<MOD>::x = {1};
 // 2D
 template<ll MOD=1'000'000'007>
 struct Hashing2D {
-    vector<vector<ll> > h;
+    vector<vector<ll>> h;
     static const ll X, Y;
     static vector<ll> x, y;
     template <typename T> // T = string or vector<>

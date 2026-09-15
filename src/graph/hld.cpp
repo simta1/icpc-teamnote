@@ -1,4 +1,4 @@
-vector<vector<int> > chd(n);
+vector<vector<int>> chd(n);
 vector<int> sz(n, 1), dep(n), p(n), in(n), top(n);
 auto mkt = [&](auto &&mkt, int cur, int par) -> void {
     for (auto nxt : adj[cur]) if (nxt != par) {

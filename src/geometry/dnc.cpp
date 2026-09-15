@@ -1,5 +1,5 @@
 constexpr ld eps = 1e-5;
-ld dnc(vector<pair<ll, ll> > v) { // O(N log^2N)
+ld dnc(vector<pair<ll, ll>> v) { // O(N log^2N)
     assert(v.size() > 1);
     sort(v.begin(), v.end(), [&](auto &a, auto &b) { return a.first < b.first; });
     auto f = [&](auto &&f, int s, int e) -> ld {
@@ -11,7 +11,7 @@ ld dnc(vector<pair<ll, ll> > v) { // O(N log^2N)
         });
         int m = s + e >> 1;
         ld res = min(f(f, s, m), f(f, m + 1, e));
-        vector<pair<ll, ll> > mids;
+        vector<pair<ll, ll>> mids;
         for (int i = s; i <= e; i++) {
             if (abs(v[m].first - v[i].first) < res) mids.push_back(v[i]);
         }

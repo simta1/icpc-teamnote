@@ -9,7 +9,7 @@ struct Graph {
         int from;
     };
     int n;
-    vector<vector<edge> > adj;
+    vector<vector<edge>> adj;
     vector<int> seen;
     vector<C> dist, pi;
     vector<edge*> pedge;
@@ -24,7 +24,7 @@ struct Graph {
         fill(dist.begin(), dist.end(), DIST_INF);
         dist[s] = 0;
         using elem = pair<C, int>;
-        using pq_t = __gnu_pbds::priority_queue<elem, greater<elem> >;
+        using pq_t = __gnu_pbds::priority_queue<elem, greater<elem>>;
         pq_t q;
         vector<typename pq_t::point_iterator> its(n);
         q.push({0, s});

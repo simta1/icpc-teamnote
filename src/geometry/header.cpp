@@ -33,7 +33,7 @@ ld distPL(const Point<T> &p, const Point<T> &l1, const Point<T> &l2) { // distan
     return abs(crossProduct(l1 - p, l2 - p)) / distPP(l1, l2);
 }
 template <typename T>
-T getPolygonAreaDouble(const vector<Point<T> > &polygon) {
+T getPolygonAreaDouble(const vector<Point<T>> &polygon) {
     if (polygon.size() <= 2) return 0;
     T res = 0;
     for (int i = 0, j = polygon.size() - 1; i < polygon.size(); j = i++) res += crossProduct(polygon[j], polygon[i]);

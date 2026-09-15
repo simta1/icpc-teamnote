@@ -1,4 +1,4 @@
-vector<vector<int> > tree(4 * n);
+vector<vector<int>> tree(4 * n);
 auto build = [&](auto &&build, int node, int s, int e) -> void {
     if (s == e) {
         tree[node].push_back(v[s]);

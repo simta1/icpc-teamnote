@@ -1,6 +1,6 @@
 auto mst = [&]() { // O(E logE)
     DSU dsu(n);
-    priority_queue<tuple<int, int, int> > pq;
+    priority_queue<tuple<int, int, int>> pq;
     for (int u = 1; u <= n; u++) {
         for (auto [v, w] : adj[u]) pq.emplace(-w, u, v);
     }

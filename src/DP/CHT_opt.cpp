@@ -7,7 +7,7 @@ struct CHT {
 
 	vector<Line> lines;
 	int n = 0; // lines[0:n-1]까지가 유효한 구간이라는 뜻
-	vector<tuple<int, int, Line> > history; // {n, changedIdx, line before change}
+	vector<tuple<int, int, Line>> history; // {n, changedIdx, line before change}
 
 	bool shouldKeep(int idx, const Line &line) { // intersect(lines[idx - 1], line) < intersect(lines[idx], line)
 		return idx == 0 || hh(lines[idx - 1].b - line.b) * (line.a - lines[idx].a) < hh(lines[idx].b - line.b) * (line.a - lines[idx - 1].a);

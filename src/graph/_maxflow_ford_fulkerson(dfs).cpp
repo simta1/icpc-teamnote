@@ -1,6 +1,6 @@
 struct Graph {
     struct Edge { int to, rev, c, oc; };
-    vector<vector<Edge> > adj;
+    vector<vector<Edge>> adj;
     vector<int> visited;
     int trueValue = 0;
     Graph(int n) : adj(n), visited(n) {} // 0-based

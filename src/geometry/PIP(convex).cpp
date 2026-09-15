@@ -1,6 +1,6 @@
 // 헤더: Point, crossProduct, ccw, isBetween, isOnPL
 template <typename T>
-int PICP(const Point<T> &point, const vector<Point<T> > &polygon, int dir=0) { // -1 : 내부, 0 : 경계, 1 : 외부 // O(logN)
+int PICP(const Point<T> &point, const vector<Point<T>> &polygon, int dir=0) { // -1 : 내부, 0 : 경계, 1 : 외부 // O(logN)
     int n = polygon.size();
     assert(n >= 3);
     if (!dir) { // dir은 polygon에서 점들이 주어진 방향(반시계 : 1, 시계 : -1, 모르는 경우(default) : 0)

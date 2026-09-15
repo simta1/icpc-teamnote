@@ -1,5 +1,5 @@
 struct BIT {
-    vector<ordered_set<int> > tree;
+    vector<ordered_set<int>> tree;
     BIT(int n) : tree(n + 1) {}
     void insert(int x, int y) {
         for (; x < tree.size(); x += x & -x) tree[x].insert(y);
@@ -18,7 +18,7 @@ struct BIT {
 };
 
 struct BIT {
-    vector<vector<int> > tree, ys;
+    vector<vector<int>> tree, ys;
     BIT(int n) : tree(n + 1), ys(n + 1) {}
     void add(int x, int y) {
         for (; x < tree.size(); x += x & -x) ys[x].push_back(y);

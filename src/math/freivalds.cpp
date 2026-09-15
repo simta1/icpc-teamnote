@@ -1,5 +1,5 @@
 template <typename T>
-bool freivalds(const vector<vector<T> > &a, const vector<vector<T> > &b, const vector<vector<T> > &c) { // O(K N^2)
+bool freivalds(const vector<vector<T>> &a, const vector<vector<T>> &b, const vector<vector<T>> &c) { // O(K N^2)
     int n = a.size();
     vector<unsigned long long> Bx(n), x(n);
     static Random<int> rand(0, 1);

@@ -3,7 +3,7 @@ namespace Poly { // multipoint evaluation
     vector<ll> multiEval(const vector<T> &f, const vector<T> &qs) { // O(NlogN + qlog^2q)
         if (qs.empty()) return {};
         assert(!f.empty());
-        vector<vector<ll> > tree(4 * qs.size());
+        vector<vector<ll>> tree(4 * qs.size());
         auto build = [&](auto &&build, int node, int s, int e) {
             if (s == e) {
                 tree[node] = {(p - qs[s] % p) % p, 1};

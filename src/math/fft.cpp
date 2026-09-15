@@ -3,7 +3,7 @@ template <typename real_t>
 void fft(vector<complex<real_t>> &a, bool inv) {
     using cpx = complex<real_t>;
     int n = a.size(), L = __lg(n);
-    static vector<complex<long double> > R(2, 1);
+    static vector<complex<long double>> R(2, 1);
     static vector<cpx> rt(2, 1);
     for (static int k = 2; k < n; k *= 2) {
         R.resize(n); rt.resize(n);
@@ -51,7 +51,7 @@ vector<ll> multiply(const vector<T> &A, const vector<T> &B) {
 
 namespace Poly { // 정확도 높은 FFT
 template <typename real_t>
-void fftPrecisely(vector<complex<real_t> > &a, bool inv) {
+void fftPrecisely(vector<complex<real_t>> &a, bool inv) {
     using cpx = complex<real_t>;
     int n = a.size(), L = __lg(n);
     vector<int> rev(n);

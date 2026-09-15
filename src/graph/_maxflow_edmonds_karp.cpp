@@ -1,6 +1,6 @@
 struct Graph {
     struct Edge { int to, rev, c, oc; };
-    vector<vector<Edge> > adj;
+    vector<vector<Edge>> adj;
     vector<Edge *> pedge;
     Graph(int n) : adj(n), pedge(n) {} // 0-based
     void addEdge(int u, int v, int c) {

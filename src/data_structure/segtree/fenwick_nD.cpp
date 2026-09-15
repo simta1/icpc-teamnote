@@ -1,6 +1,6 @@
 template <typename T, int D>
 struct FenwickTree {
-    vector<FenwickTree<T, D - 1> > tree;
+    vector<FenwickTree<T, D - 1>> tree;
     template <typename... Args>
     FenwickTree(int n, Args... args) : tree(n + 1, FenwickTree<T, D - 1>(args...)) {}
     template <typename... Args>

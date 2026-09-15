@@ -97,3 +97,15 @@ x(x+1)(x+2)\cdots(x+n-1),
 \vspace{5pt}
 \noindent \textbf{Non-adjacent Selection} \\
 $n$개 중 $r$개를 서로 인접하지 않게 고르는 경우의 수 $\displaystyle \binom{n-r+1}{r}$
+
+\vspace{5pt}
+\noindent \textbf{Pick's Theorem} \
+격자 다각형 넓이 $A$, 내부 격자점 개수 $I$, 경계 격자점 개수 $B$
+
+$$
+A = I + \frac{B}{2} - 1.
+$$
+
+$$
+B = \sum_{\text{edges}} \gcd\left(|x_2-x_1|,\ |y_2-y_1|\right).
+$$

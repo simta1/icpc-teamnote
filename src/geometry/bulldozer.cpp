@@ -8,12 +8,12 @@ struct SlopeWithIdx {
     bool operator==(const SlopeWithIdx &other) const { return dy * other.dx == other.dy * dx; }
 };
 template <typename T>
-void bulldozer(vector<Point<T> > &points) { // O(N^2 logN)
+void bulldozer(vector<Point<T>> &points) { // O(N^2 logN)
     int n = points.size();
     vector<int> pos(n);
     iota(pos.begin(), pos.end(), 0);
     sort(points.begin(), points.end());
-    vector<SlopeWithIdx<T> > slopes;
+    vector<SlopeWithIdx<T>> slopes;
     slopes.reserve(n * (n - 1) / 2);
     for (int i = 0; i < n; i++) for (int j = i + 1; j < n; j++) slopes.emplace_back(i, j, points[j] - points[i]);
     sort(slopes.begin(), slopes.end());

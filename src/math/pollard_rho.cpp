@@ -15,9 +15,9 @@ namespace PollardRho {
 		} while (g == n);
 		return getPrime(g);
 	}
-	vector<pair<ll, ll> > factorize(ll n) { // O(\sqrt[4]N)
+	vector<pair<ll, ll>> factorize(ll n) { // O(\sqrt[4]N)
 		assert(n > 1);
-		vector<pair<ll, ll> > primes;
+		vector<pair<ll, ll>> primes;
 		while (n > 1) {
 			ll prime = getPrime(n), cnt = 0;
 			while (n % prime == 0) n /= prime, ++cnt;

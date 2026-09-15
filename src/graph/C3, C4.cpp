@@ -1,5 +1,5 @@
-void getC3(const vector<vector<int> > &adj) { // sum_E{min(deg(u), deg(v))} = O(m sqrt(m))
-    vector<vector<int> > dag(adj.size());
+void getC3(const vector<vector<int>> &adj) { // sum_E{min(deg(u), deg(v))} = O(m sqrt(m))
+    vector<vector<int>> dag(adj.size());
     for (int u = 0; u < adj.size(); u++) {
         for (auto v : adj[u]) {
             if (adj[u].size() < adj[v].size() || (adj[u].size() == adj[v].size() && u < v)) dag[u].push_back(v);
@@ -15,11 +15,11 @@ void getC3(const vector<vector<int> > &adj) { // sum_E{min(deg(u), deg(v))} = O(
         }
     }
 }
-int getC4(const vector<vector<int> > &adj, int MOD) {
+int getC4(const vector<vector<int>> &adj, int MOD) {
     auto cmp = [&](int u, int v) { // u < v
         return adj[u].size() < adj[v].size() || (adj[u].size() == adj[v].size() && u < v);
     };
-    vector<vector<int> > dag(adj.size());
+    vector<vector<int>> dag(adj.size());
     for (int u = 0; u < adj.size(); u++) {
         for (auto v : adj[u]) if (cmp(u, v)) dag[u].push_back(v);
     }

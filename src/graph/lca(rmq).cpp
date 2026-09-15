@@ -9,7 +9,7 @@ auto mkt = [&](auto &&mkt, int cur, int par) -> void {
     }
 };
 mkt(mkt, 1, -1);
-vector<vector<int> > ac(__lg(sz) + 1, euler);
+vector<vector<int>> ac(__lg(sz) + 1, euler);
 for (int i = 1; i <= __lg(sz); i++) {
     for (int j = 0; j + (1 << i) - 1 < sz; j++) {
         int u = ac[i - 1][j];

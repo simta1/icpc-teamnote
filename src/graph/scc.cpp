@@ -17,10 +17,10 @@ auto get_scc(int n, const vector<vector<int>> &adj) { // adj는 1-based // O(V+E
     return pair{scci, sccn}; // 0-based // scci = scc 개수
 }
 // graphToDAG(n, adj, sccn)
-//     vector<vector<int> > sccs(scci);
+//     vector<vector<int>> sccs(scci);
 //     for (int i = 1; i <= n; i++) sccs[sccn[i]].push_back(i);
 //     vector<int> visited(sccs.size(), -1);
-//     vector<vector<int> > dag(sccs.size());
+//     vector<vector<int>> dag(sccs.size());
 //     for (auto &scc : sccs) for (auto u : scc) {
 //         for (auto v : adj[u]) if (sccn[v] != sccn[u] && visited[sccn[v]] != sccn[u]) {
 //             visited[sccn[v]] = sccn[u];

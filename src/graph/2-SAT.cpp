@@ -1,6 +1,6 @@
 struct TwoSat {
     int n;
-    vector<vector<int> > adj;
+    vector<vector<int>> adj;
     vector<int> sccn;
     TwoSat(int n) : n(n), adj(2 * n) {}
     int f(int a) {

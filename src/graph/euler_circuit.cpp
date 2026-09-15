@@ -20,7 +20,7 @@ auto dfs = [&](auto &&dfs, int cur) -> void {
 
 // 양방향 그래프
 struct Edge { int to, rev, cnt; };
-pair<bool, vector<int> > getCircuit(vector<vector<Edge> > adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
+pair<bool, vector<int>> getCircuit(vector<vector<Edge>> adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
     int E = 0;
     for (auto &r : adj) for (auto edge : r) E += edge.cnt;
     E >>= 1;
@@ -43,7 +43,7 @@ pair<bool, vector<int> > getCircuit(vector<vector<Edge> > adj, int start) { // a
 }
 
 // 단방향 그래프
-pair<bool, vector<int> > getCircuit(vector<vector<pair<int, int> > > adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
+pair<bool, vector<int>> getCircuit(vector<vector<pair<int, int>>> adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
     int E = 0;
     for (auto &r : adj) for (auto [nxt, cnt] : r) E += cnt;
     vector<int> res;

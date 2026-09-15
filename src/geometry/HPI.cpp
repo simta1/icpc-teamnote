@@ -56,7 +56,7 @@ struct HalfPlane {
     }
 };
 template <bool isCCW>
-vector<Point<ld> > HPI(vector<HalfPlane<isCCW> > planes, ld d=0, bool sortedByAngle=false) { // 반평면들을 각각 거리 d만큼 움직였을 때 교집합 // O(N logN)
+vector<Point<ld>> HPI(vector<HalfPlane<isCCW>> planes, ld d=0, bool sortedByAngle=false) { // 반평면들을 각각 거리 d만큼 움직였을 때 교집합 // O(N logN)
     if (!sortedByAngle) { // 이미 선분들이 정렬되어있다면(ex) 볼록다각형의 변들을 순서대로 넣은 경우) sortedByAngle=true 사용
         auto checkQuadrant = [](const HalfPlane<isCCW> &hp) -> bool {
             return hp.dir.y < 0 || (hp.dir.y == 0 && hp.dir.x < 0); // PI <= atan2(dir) < 2 * PI
@@ -82,14 +82,14 @@ vector<Point<ld> > HPI(vector<HalfPlane<isCCW> > planes, ld d=0, bool sortedByAn
     // assert(!isParallel(planes[0], planes.back()) && "교집합이 다각형으로 제한되지 않고 무한히 넓음");
     assert(!isParallel(planes[idxes[0]], planes[idxes.back()]) && "교집합이 다각형으로 제한되지 않고 무한히 넓음");
     if (d) for (auto &plane : planes) plane.move(d);
-    deque<HalfPlane<isCCW> > dq;
+    deque<HalfPlane<isCCW>> dq;
     for (auto idx : idxes) {
         auto &plane = planes[idx];
         while (dq.size() >= 2 && !plane.include(dq[dq.size() - 2], dq[dq.size() - 1])) dq.pop_back();
         while (dq.size() >= 2 && !plane.include(dq[0], dq[1])) dq.pop_front();
         if (dq.size() < 2 || dq[0].include(dq.back(), plane)) dq.push_back(plane);
     }
-    vector<Point<ld> > res;
+    vector<Point<ld>> res;
     if (dq.size() < 3) return res; // 교집합의 크기가 점 하나에 해당하는 경우 실수오차로 인해 교집합이 없는 것으로 계산되는 경우 생김. 이 경우 distance-=1e-6로 살짝 옮겨주면 잘 계산됨
     for (int i = 0, j = dq.size() - 1; i < dq.size(); j = i++) {
         assert(abs(crossProduct(dq[i].dir, dq[j].dir)) > eps); // TODO 이 줄 그냥 지울까?
@@ -100,7 +100,7 @@ vector<Point<ld> > HPI(vector<HalfPlane<isCCW> > planes, ld d=0, bool sortedByAn
 }
 
 template <typename point_t, typename border_t>
-vector<vector<Point<ld> > > getVoronoiDiagram(const vector<Point<point_t> > &points, const vector<Point<border_t> > &border, int dir=0) { // border은 시계/반시계 중 한 방향으로 정렬되있어야 함 // O(N^2 logN) // 중복점있으면안됨
+vector<vector<Point<ld>>> getVoronoiDiagram(const vector<Point<point_t>> &points, const vector<Point<border_t>> &border, int dir=0) { // border은 시계/반시계 중 한 방향으로 정렬되있어야 함 // O(N^2 logN) // 중복점있으면안됨
     int n = border.size();
     if (!dir) { // dir은 border에서 점들이 주어진 방향(반시계 : 1, 시계 : -1, 모르는 경우(default) : 0)   
         int i = 2;
@@ -108,10 +108,10 @@ vector<vector<Point<ld> > > getVoronoiDiagram(const vector<Point<point_t> > &poi
     }
     assert(dir != 0); // dir = 0이면 모든 점이 일직선 위에 존재
     n = points.size();
-    vector<vector<Point<ld> > > res(n);
+    vector<vector<Point<ld>>> res(n);
     for (int i = 0; i < n; i++) {
         auto [x1, y1] = points[i];
-        vector<HalfPlane<true> > planes;
+        vector<HalfPlane<true>> planes;
         if (dir == 1) for (int i = 0, j = border.size() - 1; i < border.size(); j = i++) planes.emplace_back(border[j], border[i]);
         else for (int i = 0, j = border.size() - 1; i < border.size(); j = i++) planes.emplace_back(border[i], border[j]);
         for (int j = 0; j < n; j++) if (i != j) planes.emplace_back(HalfPlane<true>::getBisector(points[i], points[j]));
@@ -128,11 +128,11 @@ HalfPlane(T a, T b, T c) 생성자 사용시 isCCW는 딱히 신경 쓸 필요�
 HalfPlane(Point<T> &s, Point<T> &e) 생성자 사용할 때는 isCCW 방향 정확히 명시해줘야 함
 */
 
-vector<Point<T> > points(n);
+vector<Point<T>> points(n);
 for (auto &[x, y] : points) cin >> x >> y;
 // 볼록다각형의 꼭짓점들이 반시계방향 정렬된 경우
-vector<HalfPlane<true> > planes;
+vector<HalfPlane<true>> planes;
 for (int i = 0, j = n - 1; i < n; j = i++) planes.emplace_back(points[j], points[i]); 
 // 볼록다각형의 꼭짓점들이 시계방향 정렬된 경우
-vector<HalfPlane<false> > planes;
+vector<HalfPlane<false>> planes;
 for (int i = 0, j = n - 1; i < n; j = i++) planes.emplace_back(points[j], points[i]); 

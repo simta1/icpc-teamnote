@@ -1,6 +1,6 @@
 template <typename T, bool Maximize = true>
 struct ErasablePQ {
-    conditional_t<Maximize, priority_queue<T>, priority_queue<T, vector<T>, greater<T> > > q, rm;
+    conditional_t<Maximize, priority_queue<T>, priority_queue<T, vector<T>, greater<T>>> q, rm;
     void normalize() {
         while (!q.empty() && !rm.empty() && q.top() == rm.top()) {
             q.pop(), rm.pop();

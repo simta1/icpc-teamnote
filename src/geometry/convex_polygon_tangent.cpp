@@ -1,6 +1,6 @@
 // 헤더: Point, crossProduct, ccw, isBetween
 template <typename T>
-pair<int, int> polygonTangent(const Point<T> &point, const vector<Point<T> > &polygon) { // O(logN)
+pair<int, int> polygonTangent(const Point<T> &point, const vector<Point<T>> &polygon) { // O(logN)
     // polygon이 반시계 방향 정렬되어있어야함
     int n = polygon.size();
     assert(n >= 3);

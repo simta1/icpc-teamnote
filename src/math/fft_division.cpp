@@ -64,7 +64,7 @@ vector<ll> invertMod(const vector<T> &f, int deg) { // f(x)^-1 mod x^deg 계산 
 }
 
 template <ll p, ll primitiveRoot, typename T>
-pair<vector<ll>, vector<ll> > divideMod(const vector<T> &f, const vector<T> &g) {
+pair<vector<ll>, vector<ll>> divideMod(const vector<T> &f, const vector<T> &g) {
     int n = f.size(), m = g.size();
     if (n < m) {
         vector<ll> res(n);
