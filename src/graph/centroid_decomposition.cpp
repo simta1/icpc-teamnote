@@ -38,8 +38,8 @@ auto dnc = [&](auto &&dnc, int cur) -> ll {
     ll res = 0;
     // centroid가 끝점인 경로도 세야됨
     for (auto nxt : adj[ct]) if (!rm[nxt]) {
-        res += f(f, nxt, ct);
-        update(update, nxt, ct);
+        res += f(f, nxt, -1);
+        update(update, nxt, -1);
     }
     for (auto x : dirty) a[x] = 0;
     dirty.clear();
