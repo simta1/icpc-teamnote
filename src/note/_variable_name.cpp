@@ -11,7 +11,7 @@
 // dfsn[], dfsi
 
 // 모듈러 역원
-// fac[], facInv[], inv[]
+// fac[], ifac[], inv[]
 
 // 제곱, 제곱근
 // sq, sqr
