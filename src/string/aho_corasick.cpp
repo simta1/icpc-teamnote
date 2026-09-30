@@ -1,5 +1,5 @@
 template <int ALPHA = 26, char FIRST = 'a'>
-struct AhoCorasick {
+struct Aho {
     struct Node {
         array<int, ALPHA> mp, go;
         int fail = 0;
