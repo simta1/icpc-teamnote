@@ -1,3 +1,4 @@
+// 4 * n * max_{k}(sum|a[i]*b[k-i]|) << 2^53 : double
 namespace Poly { // FFT
 template <typename real_t>
 void fft(vector<complex<real_t>> &a, bool inv) {

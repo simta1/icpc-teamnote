@@ -34,5 +34,3 @@ auto dfs = [&](auto &&dfs, int node, int s, int e) -> void {
     dsu.rollback(hsz);
 };
 dfs(dfs, 1, 0, sz - 1);
-
-
