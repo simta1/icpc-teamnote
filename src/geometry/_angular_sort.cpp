@@ -1,4 +1,5 @@
-auto checkQuadrant = [](const Point &p) -> bool {
+template <typename T>
+bool checkQuadrant(const Point<T> &p) {
 	return p.y < 0 || (p.y == 0 && p.x < 0); // PI <= atan2(p) < 2 * PI
 };
 

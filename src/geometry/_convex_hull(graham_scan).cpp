@@ -1,15 +1,16 @@
 template <typename T>
-vector<Point<T>> getConvexHull(vector<Point<T>> points) { // points 원본 배열 바껴도 괜찮으면 &points로 받기 // O(N logN)
-    assert (points.size() >= 3);
-    swap(points[0], *min_element(points.begin(), points.end()));
-    sort(points.begin() + 1, points.end(), [&](const Point<T> &a, const Point<T> &b) {
-        int dir = ccw(points[0], a, b);
+vector<Point<T>> getConvexHull(vector<Point<T>> ps) { // O(NlogN)
+    sort(ps.begin(), ps.end());
+    ps.erase(unique(ps.begin(), ps.end()), ps.end());
+    if (ps.empty()) return {};
+    sort(ps.begin() + 1, ps.end(), [&](const Point<T> &a, const Point<T> &b) {
+        int dir = ccw(ps[0], a, b);
         return dir ? dir > 0 : a < b;
     });
-    vector<Point<T>> v;
-    for (auto &point : points) {
-        while (v.size() >= 2 && ccw(v[v.size() - 2], v[v.size() - 1], point) <= 0) v.pop_back();
-        v.push_back(point);
+    vector<Point<T>> h;
+    for (auto &p : ps) {
+        while (h.size() >= 2 && ccw(h[h.size() - 2], h[h.size() - 1], p) <= 0) h.pop_back();
+        h.push_back(p);
     }
-    return v; // 반시계 방향 정렬된 상태
+    return h; // 반시계 방향 정렬된 상태
 }
