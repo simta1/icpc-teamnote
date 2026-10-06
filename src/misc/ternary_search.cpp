@@ -1,6 +1,6 @@
 auto ternarySearch = [&](ll l, ll r) { // min
     ll lo = l, hi = r;
-    while (hi - lo >= 3) {
+    while (lo + 2 < hi) {
         ll p = (lo * 2 + hi) / 3, q = (lo + hi * 2) / 3;
         if (f(p) > f(q)) lo = p; // max이면 if (f(p) < f(q))
         else hi = q;
