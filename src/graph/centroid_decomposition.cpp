@@ -14,37 +14,28 @@ auto get_ct = [&](auto &&get_ct, int cur, int par, int tot) -> int {
     return cur;
 };
 
+ll ans = 0;
 vector<int> a(n + 1);
 vector<int> dirty;
-auto f = [&](auto &&f, int cur, int par) -> ll {
-    ll res = 0;
-    // res <- cur
-    for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) {
-        res += f(f, nxt, cur);
-    }
-    return res;
+auto f = [&](auto &&f, int cur, int par) -> void {
+    // ans <- cur 기여분만큼 업데이트하기
+    for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) f(f, nxt, cur);
 };
 auto update = [&](auto &&update, int cur, int par) -> void {
     // a[cur];
     // dirty.push_back(cur);
-    for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) {
-        update(update, nxt, cur);
-    }
+    for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) update(update, nxt, cur);
 };
-auto dnc = [&](auto &&dnc, int cur) -> ll {
+auto dnc = [&](auto &&dnc, int cur) -> void {
     int tot = get_sz(get_sz, cur, -1);
     int ct = get_ct(get_ct, cur, -1, tot);
     rm[ct] = 1;
-    ll res = 0;
-    // centroid가 끝점인 경로도 세야됨
     for (auto nxt : adj[ct]) if (!rm[nxt]) {
-        res += f(f, nxt, -1);
+        f(f, nxt, -1);
         update(update, nxt, -1);
     }
+    // centroid가 끝점인 경로도 세야됨
     for (auto x : dirty) a[x] = 0;
     dirty.clear();
-    for (auto nxt : adj[ct]) if (!rm[nxt]) {
-        res += dnc(dnc, nxt);
-    }
-    return res;
+    for (auto nxt : adj[ct]) if (!rm[nxt]) dnc(dnc, nxt);
 };
