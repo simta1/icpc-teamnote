@@ -1,4 +1,9 @@
-// 헤더: Point, crossProduct, ccw, isBetween
+// 헤더: Point, cross, ccw, isBetween
+template <typename T>
+bool isBetween(Point<T> a, Point<T> b, Point<T> c) {
+    return min(a.x, c.x) <= b.x && b.x <= max(a.x, c.x)
+        && min(a.y, c.y) <= b.y && b.y <= max(a.y, c.y);
+}
 template <typename T>
 pair<int, int> polygonTangent(const Point<T> &point, const vector<Point<T>> &polygon) { // O(logN)
     // polygon이 반시계 방향 정렬되어있어야함

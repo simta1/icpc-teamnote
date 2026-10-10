@@ -1,4 +1,4 @@
-// 헤더: Point, crossProduct, ccw
+// 헤더: Point, cross, ccw
 const ld eps = 1e-9; // epsilon
 
 template <bool isCCW>
@@ -38,18 +38,18 @@ struct HalfPlane {
             start.y -= d * dir.x;
         }
     }
-    friend bool isParallel(const HalfPlane &a, const HalfPlane &b) { return abs(crossProduct(a.dir, b.dir)) < eps; }
+    friend bool isParallel(const HalfPlane &a, const HalfPlane &b) { return abs(cross(a.dir, b.dir)) < eps; }
     friend bool isOpposite(const HalfPlane &a, const HalfPlane &b) { return (a.dir.x * b.dir.x + a.dir.y * b.dir.y) < -eps; }
     Point<ld> getPoint(ld k) const {
         return {start.x + k * dir.x, start.y + k * dir.y};
     }
     friend Point<ld> intersectionHH(const HalfPlane &a, const HalfPlane &b) { // assert (!isParallel(a, b))일 때만 호출 됨
-        ld k = crossProduct(b.start - a.start, a.dir) / crossProduct(a.dir, b.dir);
+        ld k = cross(b.start - a.start, a.dir) / cross(a.dir, b.dir);
         return b.getPoint(k);
     }
     bool include(const Point<ld> &point) { // point가 반평면에 포함되는지
-        if constexpr (isCCW) return crossProduct(dir, point - start) > eps;
-        else return crossProduct(dir, point - start) < -eps;
+        if constexpr (isCCW) return cross(dir, point - start) > eps;
+        else return cross(dir, point - start) < -eps;
     }
     bool include(const HalfPlane &a, const HalfPlane &b) { // a, b의 교점이 반평면에 포함되는지
         return include(intersectionHH(a, b));
@@ -63,8 +63,8 @@ vector<Point<ld>> HPI(vector<HalfPlane<isCCW>> planes, ld d=0, bool sortedByAngl
         };
         sort(planes.begin(), planes.end(), [&](const HalfPlane<isCCW> &a, const HalfPlane<isCCW> &b) {
             bool aq = checkQuadrant(a), bq = checkQuadrant(b);
-            if constexpr (isCCW) return aq != bq ? aq < bq : crossProduct(a.dir, b.dir) > 0;
-            else return aq != bq ? aq < bq : crossProduct(a.dir, b.dir) < 0;
+            if constexpr (isCCW) return aq != bq ? aq < bq : cross(a.dir, b.dir) > 0;
+            else return aq != bq ? aq < bq : cross(a.dir, b.dir) < 0;
         });
     }
     vector<int> idxes; idxes.reserve(planes.size());
@@ -92,7 +92,7 @@ vector<Point<ld>> HPI(vector<HalfPlane<isCCW>> planes, ld d=0, bool sortedByAngl
     vector<Point<ld>> res;
     if (dq.size() < 3) return res; // 교집합의 크기가 점 하나에 해당하는 경우 실수오차로 인해 교집합이 없는 것으로 계산되는 경우 생김. 이 경우 distance-=1e-6로 살짝 옮겨주면 잘 계산됨
     for (int i = 0, j = dq.size() - 1; i < dq.size(); j = i++) {
-        assert(abs(crossProduct(dq[i].dir, dq[j].dir)) > eps); // TODO 이 줄 그냥 지울까?
+        assert(abs(cross(dq[i].dir, dq[j].dir)) > eps); // TODO 이 줄 그냥 지울까?
         res.push_back(intersectionHH(dq[i], dq[j]));
     }
     assert(dq[1].include(res[0]) && "교집합이 다각형으로 제한되지 않고 무한히 넓음");

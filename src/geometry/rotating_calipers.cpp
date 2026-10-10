@@ -1,4 +1,4 @@
-// 헤더: Point, crossProduct, ccw
+// 헤더: Point, cross, ccw
 // getConvexHull
 template <typename T>
 T distSquare(const Point<T> &p1, const Point<T> &p2) {
@@ -14,7 +14,7 @@ T getDiameterSquare(const vector<Point<T>> &points, bool isConvex=false) { // O(
     int n = v.size(), a = 0, b = 1;
     while (a < n && b < 2 * n) {
         diameter = max(diameter, distSquare(v[a % n], v[b % n]));
-        if (crossProduct(v[(a + 1) % n] - v[a % n], v[(b + 1) % n] - v[b % n]) >= 0) ++b;
+        if (cross(v[(a + 1) % n] - v[a % n], v[(b + 1) % n] - v[b % n]) >= 0) ++b;
         else ++a;
     }
     return diameter;

@@ -1,13 +1,13 @@
 // naive O(N^4)
-// 헤더: Point3D, crossProduct, dotProduct
+// 헤더: Point3D, cross, dot
 template <typename T>
 bool isExtreme(const vector<Point3D<T>> &points, const Point3D<T> &p1, const Point3D<T> &p2, const Point3D<T> &p3) {
-    auto normal = crossProduct(p2 - p1, p3 - p1);
+    auto normal = cross(p2 - p1, p3 - p1);
     if (normal.x == 0 && normal.y == 0 && normal.z == 0) return false; // collinear
     int cntPos = 0, cntNeg = 0;
     for (auto point : points) {
-        cntPos += (dotProduct(normal, point - p1) > 0);
-        cntNeg += (dotProduct(normal, point - p1) < 0);
+        cntPos += (dot(normal, point - p1) > 0);
+        cntNeg += (dot(normal, point - p1) < 0);
     }
     return cntPos == 0 || cntNeg == 0;
 }
@@ -28,11 +28,11 @@ vector<tuple<int, int, int>> getConvexHullFaceIdxes(const vector<Point3D<T>> &po
 // incremental $O(N^2)$
 template <typename T>
 bool collinear(const Point3D<T> &p1, const Point3D<T> &p2, const Point3D<T> &p3) {
-    auto [x, y, z] = crossProduct(p2 - p1, p3 - p1);
+    auto [x, y, z] = cross(p2 - p1, p3 - p1);
     return abs(x) <= 1e-9 && abs(y) <= 1e-9 && abs(z) <= 1e-9;
 }
 template <typename T>
-vector<tuple<int, int, int>> getConvexHullFaceIdxes(vector<Point3D<T>> &points) {
+vector<tuple<int, int, int>> getConvexHullFaceIdxes(vector<Point3D<T>> points) {
     int n = points.size();
     assert(n >= 3);
     sort(points.begin(), points.end());
@@ -52,8 +52,8 @@ vector<tuple<int, int, int>> getConvexHullFaceIdxes(vector<Point3D<T>> &points) 
     for(int i = 3; i < n; i++) {
         vector<tuple<int, int, int>> invisibleFaces;
         for(auto [idx1, idx2, idx3] : res) {
-            Point3D<T> normal = crossProduct(points[idx2] - points[idx1], points[idx3] - points[idx1]);
-            if(dotProduct(normal, points[i] - points[idx1]) > 1e-9) edgeVisible[idx1][idx2] = edgeVisible[idx2][idx3] = edgeVisible[idx3][idx1] = true;
+            Point3D<T> normal = cross(points[idx2] - points[idx1], points[idx3] - points[idx1]);
+            if(dot(normal, points[i] - points[idx1]) > 1e-9) edgeVisible[idx1][idx2] = edgeVisible[idx2][idx3] = edgeVisible[idx3][idx1] = true;
             else invisibleFaces.emplace_back(idx1, idx2, idx3);
         }
         res.clear();

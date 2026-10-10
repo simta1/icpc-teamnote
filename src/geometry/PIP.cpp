@@ -1,4 +1,4 @@
-// 헤더: Point, crossProduct, ccw
+// 헤더: Point, cross, ccw
 template <typename T>
 int PIP(const Point<T> &point, const vector<Point<T>> &polygon) { // -1 : 내부, 0 : 경계, 1 : 외부
     int n = polygon.size();

@@ -5,6 +5,6 @@ bool checkQuadrant(const Point<T> &p) {
 
 sort(planes.begin(), planes.end(), [&](const Point &a, const Point &b) {
 	bool aq = checkQuadrant(a), bq = checkQuadrant(b);
-	if constexpr (isCCW) return aq != bq ? aq < bq : crossProduct(a, b) > 0;
-	else return aq != bq ? aq < bq : crossProduct(a, b) < 0;
+	if constexpr (isCCW) return aq != bq ? aq < bq : cross(a, b) > 0;
+	else return aq != bq ? aq < bq : cross(a, b) < 0;
 });
