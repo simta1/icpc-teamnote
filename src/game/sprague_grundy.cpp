@@ -5,7 +5,7 @@ constexpr int MAX_N = 1000, MAX_X = 1000;
 constexpr int MAX_GRUNDY = min(MAX_N, MAX_X);
 vector<int> g(n + 1);
 for (int i = 1; i <= n; i++) {
-    bitset<MAX_GRUNDY + 1> bs;
-    for (int j = 1; j <= min(i, x); j++) bs[g[i - j]] = 1;
-    g[i] = (~bs)._Find_first();
+	bitset<MAX_GRUNDY + 1> bs;
+	for (int j = 1; j <= min(i, x); j++) bs[g[i - j]] = 1;
+	g[i] = (~bs)._Find_first();
 }

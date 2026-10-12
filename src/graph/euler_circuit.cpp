@@ -1,65 +1,65 @@
 // 양방향
 struct Edge {
-    int to, rev, cnt;
+	int to, rev, cnt;
 };
 
 auto dfs = [&](auto &&dfs, int cur) -> void {
-    while (!adj[cur].empty()) {
-        auto &edge = adj[cur].back();
-        if (edge.cnt == 0) adj[cur].pop_back();
-        else {
-            --edge.cnt;
-            --adj[edge.to][edge.rev].cnt;
-            int tmp = edge.idx;
-            dfs(dfs, edge.to);
-            edges.push_back(tmp);
-        }
-    }
-    nodes.push_back(cur);
+	while (!adj[cur].empty()) {
+		auto &edge = adj[cur].back();
+		if (edge.cnt == 0) adj[cur].pop_back();
+		else {
+			--edge.cnt;
+			--adj[edge.to][edge.rev].cnt;
+			int tmp = edge.idx;
+			dfs(dfs, edge.to);
+			edges.push_back(tmp);
+		}
+	}
+	nodes.push_back(cur);
 };
 
 // 양방향 그래프
 struct Edge { int to, rev, cnt; };
 pair<bool, vector<int>> getCircuit(vector<vector<Edge>> adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
-    int E = 0;
-    for (auto &r : adj) for (auto edge : r) E += edge.cnt;
-    E >>= 1;
-    vector<int> res;
-    auto dfs = [&](auto &&dfs, int cur) -> void {
-        while (!adj[cur].empty()) {
-            auto &edge = adj[cur].back();
-            if (edge.cnt == 0) adj[cur].pop_back();
-            else {
-                --edge.cnt;
-                --adj[edge.to][edge.rev].cnt;
-                dfs(dfs, edge.to);
-            }
-        }
-        res.push_back(cur);
-    };
-    dfs(dfs, start);
-    bool possible = (res.size() == E + 1 && res[0] == res.back());
-    return {possible, res};
+	int E = 0;
+	for (auto &r : adj) for (auto edge : r) E += edge.cnt;
+	E >>= 1;
+	vector<int> res;
+	auto dfs = [&](auto &&dfs, int cur) -> void {
+		while (!adj[cur].empty()) {
+			auto &edge = adj[cur].back();
+			if (edge.cnt == 0) adj[cur].pop_back();
+			else {
+				--edge.cnt;
+				--adj[edge.to][edge.rev].cnt;
+				dfs(dfs, edge.to);
+			}
+		}
+		res.push_back(cur);
+	};
+	dfs(dfs, start);
+	bool possible = (res.size() == E + 1 && res[0] == res.back());
+	return {possible, res};
 }
 
 // 단방향 그래프
 pair<bool, vector<int>> getCircuit(vector<vector<pair<int, int>>> adj, int start) { // adj비워져도 괜찮으면 참조 사용 // O(V+E)
-    int E = 0;
-    for (auto &r : adj) for (auto [nxt, cnt] : r) E += cnt;
-    vector<int> res;
-    auto dfs = [&](auto &&dfs, int cur) -> void {
-        while (!adj[cur].empty()) {
-            auto &[nxt, cnt] = adj[cur].back();
-            int tmp = nxt; // dangling 방지
-            if (--cnt == 0) adj[cur].pop_back();
-            dfs(dfs, tmp);
-        }
-        res.push_back(cur);
-    };
-    dfs(dfs, start);
-    reverse(res.begin(), res.end());
-    bool possible = (res.size() == E + 1 && res[0] == res.back());
-    return {possible, res};
+	int E = 0;
+	for (auto &r : adj) for (auto [nxt, cnt] : r) E += cnt;
+	vector<int> res;
+	auto dfs = [&](auto &&dfs, int cur) -> void {
+		while (!adj[cur].empty()) {
+			auto &[nxt, cnt] = adj[cur].back();
+			int tmp = nxt; // dangling 방지
+			if (--cnt == 0) adj[cur].pop_back();
+			dfs(dfs, tmp);
+		}
+		res.push_back(cur);
+	};
+	dfs(dfs, start);
+	reverse(res.begin(), res.end());
+	bool possible = (res.size() == E + 1 && res[0] == res.back());
+	return {possible, res};
 }
 
 // 오일러 회로는 모든 간선을 지나는 게 목표지, 모든 정점을 지나는 게 목표가 아님

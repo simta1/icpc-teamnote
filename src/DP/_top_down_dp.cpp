@@ -1,14 +1,14 @@
 vector dp(dim1, vector<int>(dim2, -1));
 
 function<int(int, int)> f = [&](int cur, int state) -> int {
-    // if (base condition) return ~~;
+	// if (base condition) return ~~;
 
-    int &res = dp[cur][state];
-    if (~res) return res;
+	int &res = dp[cur][state];
+	if (~res) return res;
 
-    res = 0; // visit check
-    res = (res + f(nxt, nxtState)) % mod;
-    return res;
+	res = 0; // visit check
+	res = (res + f(nxt, nxtState)) % mod;
+	return res;
 };
 
 // 1. dp배열 초기화

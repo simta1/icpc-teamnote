@@ -1,18 +1,18 @@
 auto bfs = [&](int s) {
-    vector<int> dist(n + 1, -1), p(n + 1, -1);
-    dist[s] = 0;
-    queue<int> q;
-    q.push(s);
-    while (!q.empty()) {
-        auto cur = q.front();
-        q.pop();
-        for (auto nxt : adj[cur]) if (!~dist[nxt]) {
-            dist[nxt] = dist[cur] + 1;
-            p[nxt] = cur;
-            q.push(nxt);
-        }
-    }
-    return pair{dist, p};
+	vector<int> dist(n + 1, -1), p(n + 1, -1);
+	dist[s] = 0;
+	queue<int> q;
+	q.push(s);
+	while (!q.empty()) {
+		auto cur = q.front();
+		q.pop();
+		for (auto nxt : adj[cur]) if (!~dist[nxt]) {
+			dist[nxt] = dist[cur] + 1;
+			p[nxt] = cur;
+			q.push(nxt);
+		}
+	}
+	return pair{dist, p};
 };
 
 auto d1 = bfs(1).first;

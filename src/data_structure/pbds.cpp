@@ -26,8 +26,8 @@ os.erase(os.find_by_order(k));
 os.erase(os.find_by_order(os.order_of_key(key))); // key 삭제 1
 int order = os.order_of_key(key); // key 삭제 2 (들어있는값인지 확인후삭제)
 if (order < os.size()) {
-    auto it = os.find_by_order(os.order_of_key(key));
-    if (*it == key) os.erase();
+	auto it = os.find_by_order(os.order_of_key(key));
+	if (*it == key) os.erase();
 }
 int order = os.order_of_key(key); // 검색
 if (order < os.size() && *os.find_by_order(order) == val) ;

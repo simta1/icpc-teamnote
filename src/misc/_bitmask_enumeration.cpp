@@ -1,16 +1,16 @@
 // mask의 부분집합들 중 공집합만 제외하고 전부 순회
 for (int i = mask; i > 0; i = (i - 1) & mask) {
-    cout << mask << "(" << bitset<N>(mask) << ") " << bitset<N>(i) << "\n";
+	cout << mask << "(" << bitset<N>(mask) << ") " << bitset<N>(i) << "\n";
 }
 
 // nCr 비트마스크 순회
 constexpr int n = 5, k = 3;
 for (int mask = (1 << k) - 1; mask < (1 << n);) { // n개 비트 중 k개 비트만 켜진 모든 비트마스크를 오름차순으로 순회
-    if (mask == 0) break;
-    // code
-    cout << bitset<n>(mask) << "\n";
-    int x = mask & -mask, y = mask + x;
-    mask = ((mask & ~y) / x >> 1) | y;
+	if (mask == 0) break;
+	// code
+	cout << bitset<n>(mask) << "\n";
+	int x = mask & -mask, y = mask + x;
+	mask = ((mask & ~y) / x >> 1) | y;
 }
 // 00111
 // 01011

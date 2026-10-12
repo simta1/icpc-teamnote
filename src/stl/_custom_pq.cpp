@@ -1,7 +1,7 @@
 struct Compare {
-    bool operator()(const Edge &bottom, const Edge &top) const {
-        return bottom.cost > top.cost; // min pq
-    }
+	bool operator()(const Edge &bottom, const Edge &top) const {
+		return bottom.cost > top.cost; // min pq
+	}
 };
 priority_queue<T, vector<T>, Compare> pq;
 

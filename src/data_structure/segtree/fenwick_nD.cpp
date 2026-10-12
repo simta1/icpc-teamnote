@@ -1,22 +1,22 @@
 template <typename T, int D>
 struct FenwickTree {
-    vector<FenwickTree<T, D - 1>> tree;
-    template <typename... Args>
-    FenwickTree(int n, Args... args) : tree(n + 1, FenwickTree<T, D - 1>(args...)) {}
-    template <typename... Args>
-    void update(int pos, Args... args) {
-        for (; pos < tree.size(); pos += (pos & -pos)) tree[pos].update(args...);
-    }
-    template <typename... Args>
-    T sum(int r, Args... args) const {
-        T res = 0;
-        for (; r; r -= (r & -r)) res += tree[r].query(args...);
-        return res;
-    }
-    template <typename... Args>
-    T query(int l, int r, Args... args) const {
-        return sum(r, args...) - sum(l - 1, args...);
-    }
+	vector<FenwickTree<T, D - 1>> tree;
+	template <typename... Args>
+	FenwickTree(int n, Args... args) : tree(n + 1, FenwickTree<T, D - 1>(args...)) {}
+	template <typename... Args>
+	void update(int pos, Args... args) {
+		for (; pos < tree.size(); pos += (pos & -pos)) tree[pos].update(args...);
+	}
+	template <typename... Args>
+	T sum(int r, Args... args) const {
+		T res = 0;
+		for (; r; r -= (r & -r)) res += tree[r].query(args...);
+		return res;
+	}
+	template <typename... Args>
+	T query(int l, int r, Args... args) const {
+		return sum(r, args...) - sum(l - 1, args...);
+	}
 };
 template <typename T>
 struct FenwickTree<T, 0> {
