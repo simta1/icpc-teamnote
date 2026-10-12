@@ -1,4 +1,3 @@
-// 헤더: Point
 template <typename T>
 struct SlopeWithIdx {
 	int i, j; // idx
@@ -8,21 +7,21 @@ struct SlopeWithIdx {
 	bool operator==(const SlopeWithIdx &other) const { return dy * other.dx == other.dy * dx; }
 };
 template <typename T>
-void bulldozer(vector<Point<T>> &points) { // O(N^2 logN)
-	int n = points.size();
+void bulldozer(vector<Point<T>> &ps) { // O(N^2 logN)
+	int n = ps.size();
 	vector<int> pos(n);
 	iota(pos.begin(), pos.end(), 0);
-	sort(points.begin(), points.end());
+	sort(ps.begin(), ps.end());
 	vector<SlopeWithIdx<T>> slopes;
 	slopes.reserve(n * (n - 1) / 2);
-	for (int i = 0; i < n; i++) for (int j = i + 1; j < n; j++) slopes.emplace_back(i, j, points[j] - points[i]);
+	for (int i = 0; i < n; i++) for (int j = i + 1; j < n; j++) slopes.emplace_back(i, j, ps[j] - ps[i]);
 	sort(slopes.begin(), slopes.end());
 	for (int i = 0, j; i < slopes.size(); i = j) {
 		for (j = i; j < slopes.size() && slopes[i] == slopes[j]; j++) {
 			int &idx1 = pos[slopes[j].i], &idx2 = pos[slopes[j].j];
 			// 인접한 원소끼리 순서를 바뀌며 모든 정렬을 순회하게 됨, 즉 abs(idx1-idx2)==1임
 			swap(idx1, idx2);
-			swap(points[idx1], points[idx2]);
+			swap(ps[idx1], ps[idx2]);
 			
 			// idx1이랑 idx2는 pos[]의 alias이므로 함부로 값을 수정하면 안됨
 			// 예를 들어 if (idx1 > idx2) swap(idx1, idx2) 같은 거 하면 안됨
@@ -38,7 +37,7 @@ void bulldozer(vector<Point<T>> &points) { // O(N^2 logN)
 	// for (int i = 0; i < slopes.size(); i++) { // 이 경우 for (auto &slope : slopes)로 해도 무방
 	//	   int &idx1 = pos[slopes[i].i], &idx2 = pos[slopes[i].j];
 	//	   swap(idx1, idx2);
-	//	   swap(points[idx1], points[idx2]);
+	//	   swap(ps[idx1], ps[idx2]);
 	//	   // 코드
 	// }
 }

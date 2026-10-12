@@ -17,16 +17,15 @@ struct Point {
 		T v = cross(b-a,c-a);
 		return (v>0)-(v<0);
 	}
+	friend bool onPS(Point p, Point a, Point b) {
+		return ccw(a, b, p) == 0 && dot(p - a, p - b) <= 0;
+	}
 };
-// P: Point, L: Line, S: Segment, H: convexHull, G: polyGon
-Point<ld> footPL(const Point<ld> &p, const Point<ld> &a, const Point<ld> &b) {
+// P: Point, L: Line, S: Segment, H: convexHull
+auto footPL(Point<ld> p, Point<ld> a, Point<ld> b) {
 	auto d = b - a;
 	return a + d * (dot(p - a, d) / dot(d, d));
 }
-Point<ld> reflectPL(const Point<ld> &p, const Point<ld> &a, const Point<ld> &b) {
+auto reflectPL(Point<ld> p, Point<ld> a, Point<ld> b) {
 	return footPL(p, a, b) * 2 - p;
-}
-template <typename T>
-bool onPS(Point<T> p, Point<T> a, Point<T> b) { // p가 l1 l2위에 있는지
-	return ccw(a, b, p) == 0 && dot(p - a, p - b) <= 0;
 }

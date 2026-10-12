@@ -24,10 +24,10 @@ ld distPL(const Point<T> &p, const Point<T> &l1, const Point<T> &l2) { // distan
 }
 
 template <typename T>
-T area2G(const vector<Point<T>> &polygon) {
-	if (polygon.size() <= 2) return 0;
+T area2G(const vector<Point<T>> &g) {
+	if (g.size() <= 2) return 0;
 	T res = 0;
-	for (int i = 0, j = polygon.size() - 1; i < polygon.size(); j = i++) res += cross(polygon[j], polygon[i]);
+	for (int i = 0, j = g.size() - 1; i < g.size(); j = i++) res += cross(g[j], g[i]);
 	return abs(res);
 }
 ld heron(ld a, ld b, ld c) { // 헤론

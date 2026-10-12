@@ -1,5 +1,5 @@
 template <typename T>
-vector<Point<T>> getConvexHull(vector<Point<T>> ps) { // O(NlogN)
+auto getConvexHull(vector<Point<T>> ps) { // O(NlogN)
 	sort(ps.begin(), ps.end());
 	ps.erase(unique(ps.begin(), ps.end()), ps.end());
 	if (ps.size() <= 1) return ps;

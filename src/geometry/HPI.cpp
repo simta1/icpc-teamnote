@@ -1,4 +1,3 @@
-// 헤더: Point, cross, ccw
 const ld eps = 1e-9; // epsilon
 
 template <bool isCCW>
