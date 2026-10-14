@@ -7,7 +7,7 @@ struct RMQ {
 			for (int j = 0; j < ac[i].size(); j++) ac[i][j] = op(ac[i - 1][j], ac[i - 1][j + len]);
 		}
 	}
-	T query(int a, int b) const { // 0-based // op[a:b]의 op() 누적값 // O(1)
+	T qry(int a, int b) const { // 0-based // op[a:b]의 op() 누적값 // O(1)
 		assert(0 <= a && a <= b && b < ac[0].size());
 		int i = __lg(b - a + 1);
 		return op(ac[i][a], ac[i][b - (1 << i) + 1]);

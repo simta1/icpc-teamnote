@@ -13,7 +13,7 @@ auto insert = [&](int x) {
 		cur = tree[cur].chd[bit];
 	}
 };
-auto mnquery = [&](int x) {
+auto mnqry = [&](int x) {
 	int cur = 0;
 	for (int i = 29; i >= 0; i--) {
 		int bit = x >> i & 1;

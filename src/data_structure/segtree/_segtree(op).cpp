@@ -9,11 +9,11 @@ struct Seg {
 		// for (int i = 0; i < n; i++) tree[sz | i] = v[i];
 		// for (int i = sz - 1; i >= 1; i--) tree[i] = op(tree[i << 1], tree[i << 1 | 1]); 
 	}
-	void update(int i, T val) { // 0-based
+	void upd(int i, T val) { // 0-based
 		tree[i |= sz] = val;
 		while (i >>= 1) tree[i] = op(tree[i << 1], tree[i << 1 | 1]);
 	}
-	T query(int l, int r) { // 0-based
+	T qry(int l, int r) { // 0-based
 		if (l > r) return e();
 		T resL = e(), resR = e();
 		for (l |= sz, r |= sz; l <= r; l >>= 1, r >>= 1) {

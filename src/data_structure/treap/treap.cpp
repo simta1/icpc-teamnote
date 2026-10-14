@@ -96,12 +96,12 @@ void f(int &root, int l, int r, F f) {
 f(root, l, r, [&](int node) {
 	tree[node].flip ^= 1;
 });
-// update(root, l, r, mul, add)
+// upd(root, l, r, mul, add)
 f(root, l, r, [&](int node) {
 	tree[node].lm = mul;
 	tree[node].la = add;
 });
-// query(root, l, r)
+// qry(root, l, r)
 f(root, l, r, [&](int node) {
 	cout << tree[node].sum << "\n";
 });

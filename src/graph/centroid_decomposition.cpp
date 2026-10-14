@@ -21,10 +21,10 @@ auto f = [&](auto &&f, int cur, int par) -> void {
 	// ans <- cur 기여분만큼 업데이트하기
 	for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) f(f, nxt, cur);
 };
-auto update = [&](auto &&update, int cur, int par) -> void {
+auto upd = [&](auto &&upd, int cur, int par) -> void {
 	// a[cur];
 	// dirty.push_back(cur);
-	for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) update(update, nxt, cur);
+	for (auto nxt : adj[cur]) if (nxt != par && !rm[nxt]) upd(upd, nxt, cur);
 };
 auto dnc = [&](auto &&dnc, int cur) -> void {
 	int tot = get_sz(get_sz, cur, -1);
@@ -32,7 +32,7 @@ auto dnc = [&](auto &&dnc, int cur) -> void {
 	rm[ct] = 1;
 	for (auto nxt : adj[ct]) if (!rm[nxt]) {
 		f(f, nxt, -1);
-		update(update, nxt, -1);
+		upd(upd, nxt, -1);
 	}
 	// centroid가 끝점인 경로도 세야됨
 	for (auto x : dirty) a[x] = 0;

@@ -22,17 +22,17 @@ auto ett = [&](auto &&ett, int cur) -> void {
 top[root] = root;
 ett(ett, root);
 segtree seg(n);
-auto query = [&](int a, int b) { // O(log^2N)
+auto qry = [&](int a, int b) { // O(log^2N)
 	int res = 0;
 	while (top[a] != top[b]) {
 		if (dep[top[a]] > dep[top[b]]) swap(a, b);
-		res += seg.query(in[top[b]], in[b]);
+		res += seg.qry(in[top[b]], in[b]);
 		b = p[top[b]];
 	}
 	if (dep[a] > dep[b]) swap(a, b);
-	res += seg.query(in[a], in[b]); // 정점쿼리
-	// if (in[a] + 1 <= in[b]) res += seg.query(in[a] + 1, in[b]); // 간선쿼리
+	res += seg.qry(in[a], in[b]); // 정점쿼리
+	// if (in[a] + 1 <= in[b]) res += seg.qry(in[a] + 1, in[b]); // 간선쿼리
 	return res;
 };
-// seg.update(in[a], b);
+// seg.upd(in[a], b);
 // ett: [in[cur], in[cur] + sz[cur] - 1]

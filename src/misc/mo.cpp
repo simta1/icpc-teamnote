@@ -15,17 +15,17 @@ vector<T> mo(const vector<int> &v, const vector<pair<int, int>> &_qs) { // O((N+
 	auto pop_back = [&](int idx) {};
 	auto push_front = push_back;
 	auto pop_front = pop_back;
-	auto query = [&]() -> T {};
+	auto qry = [&]() -> T {};
 	auto [cs, ce, idx] = qs[0];
 	for (int i = cs; i <= ce; i++) push_back(i);
-	res[idx] = query();
+	res[idx] = qry();
 	for (int i = 1; i < qs.size(); i++) {
 		auto [s, e, idx] = qs[i];
 		while (cs > s) push_front(--cs);
 		while (ce < e) push_back(++ce);
 		while (cs < s) pop_front(cs++);
 		while (ce > e) pop_back(ce--);
-		res[idx] = query();
+		res[idx] = qry();
 	}
 	return res;
 }

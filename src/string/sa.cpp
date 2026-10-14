@@ -47,7 +47,7 @@ auto lce = [&](int i, int j) { // lcp(st[i:], st[j:])
 	int idx1 = rank[i];
 	int idx2 = rank[j];
 	if (idx1 > idx2) swap(idx1, idx2);
-	return rmq.query(idx1, idx2 - 1); // i!=j라서 idx1 <= idx2 - 1 성립
+	return rmq.qry(idx1, idx2 - 1); // i!=j라서 idx1 <= idx2 - 1 성립
 };
 auto cmp = [&](int i, int j, int i2, int j2) { // st[i:j] < st[i2:j2]
 	int len = lce(i, i2);

@@ -5,10 +5,10 @@ for (int i = 1; i < table.size(); i++) { // O(N log(maxK))
 	for (int j = 1; j <= n; j++) table[i][j] = table[i - 1][table[i - 1][j]];
 }
 
-auto query = [&](T k, int x) { // f^k[x] // O(logK)
+auto qry = [&](T k, int x) { // f^k[x] // O(logK)
 	while (k) {
 		x = table[__builtin_ctz(k)][x];
-		k &= (k - 1);
+		k &= k - 1;
 	}
 	return x;
 };

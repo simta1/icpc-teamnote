@@ -12,7 +12,7 @@ struct BIT {
 		for (; x > 0; x -= x & -x) res += tree[x].order_of_key(y + 1);
 		return res;
 	}
-	int query(int x1, int x2, int y1, int y2) {
+	int qry(int x1, int x2, int y1, int y2) {
 		return sum(x2, y2) - sum(x2, y1 - 1) - sum(x1 - 1 ,y2) + sum(x1 - 1, y1 - 1);
 	}
 };
@@ -52,7 +52,7 @@ struct BIT {
 		}
 		return res;
 	}
-	int query(int x1, int x2, int y1, int y2) {
+	int qry(int x1, int x2, int y1, int y2) {
 		return sum(x2, y2) - sum(x2, y1 - 1) - sum(x1 - 1 ,y2) + sum(x1 - 1, y1 - 1);
 	}
 };

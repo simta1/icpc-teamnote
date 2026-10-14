@@ -52,6 +52,6 @@ struct Seg {
 	}
 	ll qry(int l, int r) { return qry(1, 0, sz - 1, l, r); }
 };
-// update(update, 1, 0, sz - 1, x - 1, y - 1, 1, v); // range add
-// update(update, 1, 0, sz - 1, x - 1, y - 1, v, 0); // range mul
-// update(update, 1, 0, sz - 1, x - 1, y - 1, 0, v); // range change
+// upd(x - 1, y - 1, 1, v); // range add
+// upd(x - 1, y - 1, v, 0); // range mul
+// upd(x - 1, y - 1, 0, v); // range change

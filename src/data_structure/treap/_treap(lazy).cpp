@@ -65,7 +65,7 @@ void reverse(int &root, int l, int r) {
 	tree[b].flip ^= 1;
 	root = merge(merge(a, b), c);
 }
-ll query(int &root, int l, int r) {
+ll qry(int &root, int l, int r) {
 	auto [a, bc] = split(root, l);
 	auto [b, c] = split(bc, r - l + 1);
 	ll res = tree[b].sum;

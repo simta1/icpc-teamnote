@@ -21,4 +21,4 @@ ll pReducedFactorial(ll n, int p, int mod) {
 		return n == 0 ? 1 : power(pFreeFac[mod - 1], n / mod, mod) * pFreeFac[n % mod] % mod * f(n / p) % mod;
 	};
 	return f(n);
-} // preprocessing O(p^e), query O(log_p(n) log(n))
+} // preprocessing O(p^e), qry O(log_p(n) log(n))

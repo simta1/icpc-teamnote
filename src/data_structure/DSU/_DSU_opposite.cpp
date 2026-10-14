@@ -25,7 +25,7 @@ struct DSU {
 			_merge(a + n, b + n);
 		}
 	}
-	int query(int a, int b) { // 0: 같은 집합, 1: 반대쪽 집합, -1: 관계 모름
+	int qry(int a, int b) { // 0: 같은 집합, 1: 반대쪽 집합, -1: 관계 모름
 		return find(a) == find(b) ? 0 : find(a) == find(b + n) ? 1 : -1;
 	}
 };
