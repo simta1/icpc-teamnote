@@ -1,5 +1,5 @@
-auto get_scc(int n, const vector<vector<int>> &adj) { // adj는 1-based // O(V+E)
-	vector<int> dfsn(n + 1), sccn(n + 1, -1);
+auto getSCC(int n, const vector<vector<int>> &adj) { // adj: 0-based // O(V+E)
+	vector<int> dfsn(n), sccn(n, -1);
 	vector<int> s(n);
 	int top = 0, dfsi = 0, scci = 0;
 	auto dfs = [&](auto &&dfs, int cur) -> int {
@@ -12,13 +12,17 @@ auto get_scc(int n, const vector<vector<int>> &adj) { // adj는 1-based // O(V+E
 		}
 		return low;
 	};
-	for (int i = 1; i <= n; i++) if (!dfsn[i]) dfs(dfs, i);
-	for (int i = 1; i <= n; i++) sccn[i] = scci - 1 - sccn[i];
+	for (int i = 0; i < n; i++) if (!dfsn[i]) dfs(dfs, i);
+	for (int i = 0; i < n; i++) sccn[i] = scci - 1 - sccn[i];
 	return pair{scci, sccn}; // 0-based // scci = scc 개수
 }
-// graphToDAG(n, adj, sccn)
+// 1-based인 경우 사용법
+// auto [scci, sccn] = getSCC(n + 1, adj);
+// --scci; // 정점 0 제외
+
+// graphToDAG(n, adj, sccn) // 0-based
 //	   vector<vector<int>> sccs(scci);
-//	   for (int i = 1; i <= n; i++) sccs[sccn[i]].push_back(i);
+//	   for (int i = 0; i < n; i++) sccs[sccn[i]].push_back(i);
 //	   vector<int> visited(sccs.size(), -1);
 //	   vector<vector<int>> dag(sccs.size());
 //	   for (auto &scc : sccs) for (auto u : scc) {
