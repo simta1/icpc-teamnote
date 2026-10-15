@@ -1,5 +1,5 @@
 struct Node {
-	int l = -1, r = -1, p = -1; // 
+	int l = -1, r = -1, p = -1; //
 	int pr, sz = 1, val;
 	inline static mt19937 rng;
 	Node(int val) : pr(rng()), val(val) {}
@@ -39,7 +39,7 @@ int merge(int a, int b) {
 	tree[b].recalc();
 	return b;
 }
-int get_idx(int node) {
+int get_idx(int node) { // 0-based
 	int res = cnt(tree[node].l);
 	while (~tree[node].p) {
 		int par = tree[node].p;
