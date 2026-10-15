@@ -38,25 +38,11 @@ vector<int> getNodeOfBCC(int n, const vector<int> &bcc, const vector<pair<int, i
     }
     ++t;
     return res;
-    // int E = bcc.size(), V = getNodeOfBCC(n, bcc).size();라 할 때
+    // int E = bcc.size(), V = getNodeOfBCC(n, bcc).size();
     // E = V : 모든 정점의 차수가 2인 사이클(simple graph면 단순사이클)
-    // E > V : 사이클을 가짐
+    // E > V : 독립적인 사이클 2개 이상 존재
     // E < V : 단절선(E=1, V=2) 뿐임
     // E=0, V=1 : 정점하나만 동떨어진 경우
 }
 // 2개 이상의 BCC에 포함되는 정점은 단절점이다.(역도 성립)
 // $V=2$, $E=1$라면 해당 BCC는 단절선이다.(역도 성립)
-
-// ex) BCC 사용해서 단절점, 단절선 개수 세기
-int cuts = 0, bridges = 0;
-auto bccs = get_BCC(n, adj);
-vector<int> cnt(n + 1);
-for (auto &bcc : bccs) {
-    auto nodes = getNodeOfBCC(n, bcc, edges);
-    int V = nodes.size();
-    int E = bcc.size();
-    for (auto e : nodes) cuts += (++cnt[e] == 2);
-    bridges += (V == 2 && E == 1);
-}
-cout << cutVertexes << "\n"; // 단절점 개수 
-cout << bridges << "\n"; // 단절선 개수 
