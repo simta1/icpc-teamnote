@@ -6,7 +6,7 @@ auto dfs = [&](auto &&dfs, int cur, int pid) -> int {
 		if (!dfsn[nxt]) {
 			int nlow = dfs(dfs, nxt, id);
 			low = min(low, nlow);
-			if (nlow > dfsn[cur]) // id: bridge
+			if (nlow > dfsn[cur]) ; // id: bridge
 		}
 		else low = min(low, dfsn[nxt]);
 	}
