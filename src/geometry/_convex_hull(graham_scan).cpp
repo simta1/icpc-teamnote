@@ -1,9 +1,9 @@
 template <typename T>
-auto getConvexHull(vector<Point<T>> ps) { // O(NlogN)
+vector<Point<T>> getConvexHull(vector<Point<T>> ps) { // O(NlogN)
 	sort(ps.begin(), ps.end());
 	ps.erase(unique(ps.begin(), ps.end()), ps.end());
 	if (ps.empty()) return {};
-	sort(ps.begin() + 1, ps.end(), [&](const Point<T> &a, const Point<T> &b) {
+	sort(ps.begin() + 1, ps.end(), [&](auto &a, auto &b) {
 		int dir = ccw(ps[0], a, b);
 		return dir ? dir > 0 : a < b;
 	});
