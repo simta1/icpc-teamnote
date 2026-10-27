@@ -7,5 +7,5 @@ ll modInv(ll a, ll b) {
 	auto [x, y, g] = egcd(a, b);
 	return g != 1 ? -1 : (x + b) % b;
 } // modInv(n, MOD)
-vector<ll> inv(n + 1, 1);
-for (int i = 2; i <= n; ++i) inv[i] = inv[p % i] * (p - p / i) % p;
+static ll inv[N + 1] = {1, 1};
+for (int i = 2; i <= N; ++i) inv[i] = inv[P % i] * (P - P / i) % P;
