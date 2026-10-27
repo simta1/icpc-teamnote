@@ -39,10 +39,10 @@ vector<int> getNodeOfBCC(int n, const vector<int> &bcc, const vector<pair<int, i
     ++t;
     return res;
     // int E = bcc.size(), V = getNodeOfBCC(n, bcc).size();
-    // E = V : 모든 정점의 차수가 2인 사이클(simple graph면 단순사이클)
+    // E = V : 단순사이클
     // E > V : 독립적인 사이클 2개 이상 존재
     // E < V : 단절선(E=1, V=2) 뿐임
     // E=0, V=1 : 정점하나만 동떨어진 경우
 }
-// 2개 이상의 BCC에 포함되는 정점은 단절점이다.(역도 성립)
-// $V=2$, $E=1$라면 해당 BCC는 단절선이다.(역도 성립)
+// 2개 이상의 BCC에 포함되는 정점은 단절점(역도 성립)
+// $V=2$, $E=1$라면 해당 BCC는 단절선(역도 성립)
