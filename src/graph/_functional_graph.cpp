@@ -3,7 +3,8 @@ vector<int> path;
 auto dfs = [&](auto &&dfs, int cur) -> void {
 	state[cur] = 1;
 	path.push_back(cur);
-	for (auto nxt : adj[cur]) {
+	int nxt = adj[cur];
+	if (~nxt) {
 		if (!state[nxt]) dfs(dfs, nxt);
 		else if (state[nxt] == 1) {
 			vector<int> cycle;

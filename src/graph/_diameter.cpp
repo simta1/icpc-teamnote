@@ -17,6 +17,6 @@ auto bfs = [&](int s) {
 
 auto d1 = bfs(1).first;
 int a = max_element(d1.begin(), d1.end()) - d1.begin();
-auto [dist, p] = bfs(a);
-int b = max_element(dist.begin(), dist.end()) - dist.begin();
-int D = dist[b];
+auto [da, p] = bfs(a);
+int b = max_element(da.begin(), da.end()) - da.begin();
+int D = da[b];

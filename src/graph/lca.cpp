@@ -1,17 +1,17 @@
-// 1-based (ac default값이 0이라서 0-based안됨)
 int mx = __lg(n);
-vector<int> dep(n + 1);
-vector ac(n + 1, vector<int>(mx + 1));
+vector<int> dep(n);
+vector ac(n, vector<int>(mx + 1));
 auto dfs = [&](auto &&dfs, int cur, int par) -> void {
+	for (int i = 1; i <= mx; i++) ac[cur][i] = ac[ac[cur][i - 1]][i - 1];
 	for (auto nxt : adj[cur]) if (nxt != par) {
 		dep[nxt] = dep[cur] + 1;
 		ac[nxt][0] = cur;
-		for (int i = 1; i <= mx; i++) ac[nxt][i] = ac[ac[nxt][i - 1]][i - 1];
 		dfs(dfs, nxt, cur);
 	}
 };
-dfs(dfs, 1, -1); // O(NlogN)
-auto getLCA = [&](int a, int b) { // O(logN)
+ac[0][0] = 0;
+dfs(dfs, 0, -1);
+auto getLCA = [&](int a, int b) {
 	if (dep[a] > dep[b]) swap(a, b);
 	for (int diff = dep[b] - dep[a]; diff; diff &= diff - 1) b = ac[b][__builtin_ctz(diff)];
 	if (a == b) return a;
