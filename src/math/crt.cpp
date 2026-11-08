@@ -1,17 +1,8 @@
-pll merge(const pll &a, const pll &b) {
-	auto [p1, m1] = a;
-	auto [p2, m2] = b;
-	ll g = __gcd(p1, p2);
-	if ((m2 - m1) % g) return {-1, -1};
-	ll x = (m2 - m1) / g * modInverse(p1 / g, p2 / g) % (p2 / g);
-	return {p1 / g * p2, p1 * x + m1};
-}
-pll crt(const vector<pll> &rems) { // rems 원소는 {p, n % p}꼴 // O(N logP) (P:= p1*p2*...*pn)
-	pll res(1, 0);
-	for (auto &p : rems) {
-		res = merge(res, p);
-		if (res.first == -1) return {-1, -1};
-	}
-	if (res.second < 0) res.second += res.first;
-	return res;
-} // crt().first = -1이면 연립합동식에 해 존재
+ll crt(ll a, ll m, ll b, ll n) { // m,n>0, 0<=a<m, 0<=b<n, lcm(m,n)<=LLONG_MAX
+	if (n > m) swap(a, b), swap(m, n);
+	auto [x, y, g] = egcd(m, n);
+	if ((b - a) % g) return -1;
+	ll t = (b - a) / g * x % (n / g);
+	if (t < 0) t += (n / g);
+	return a + m * t;
+} // -1 or [0, lcm(m,n))

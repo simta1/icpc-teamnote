@@ -9,10 +9,19 @@ for (int i = 1; i <= N; i++) {
 }
 
 constexpr ll MOD = 998'244'353;
+auto binpow = [&](ll a, ll n) {
+	ll res = 1;
+	for (; n; n >>= 1) {
+		if (n & 1) res = res * a % MOD;
+		a = a * a % MOD;
+	}
+	return res;
+};
+auto modInv = [&](ll a) { return binpow(a, MOD - 2); };
 constexpr int N = 2'000'005;
 static ll fac[N + 1] = {1}, ifac[N + 1]{};
 for (int i = 1; i <= N; i++) fac[i] = fac[i - 1] * i % MOD;
-ifac[N] = modInv(fac[N], MOD);
+ifac[N] = modInv(fac[N]);
 for (int i = N - 1; i >= 0; i--) ifac[i] = ifac[i + 1] * (i + 1) % MOD;
 auto nCr = [&](int n, int r) {
 	return fac[n] * ifac[r] % MOD * ifac[n - r] % MOD;
