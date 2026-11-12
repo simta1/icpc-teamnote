@@ -13,4 +13,6 @@ uv run latexmk -pdflua -shell-escape -outdir=build teamnote.tex
 ```
 
 ### References
-- teamnote.sty: https://github.com/ho94949/teamnote.sty
+- [teamnote.sty](https://github.com/ho94949/teamnote.sty)
+- [KACTL](https://github.com/kth-competitive-programming/kactl)
+  - [LineContainer](https://github.com/kth-competitive-programming/kactl/blob/main/content/data-structures/LineContainer.h)
